@@ -4,19 +4,13 @@ import java.awt.*;
 import javax.swing.*;
 
 public class GridView extends JPanel {
-	
-	public GridView() {
-		JPanel jPanel = new JPanel();
-		//setPreferredSize(new Dimension(0, 0));
-		setBackground(Color.white);
-	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		int gridSize = 30;
+		int gridSize = 30; // the grid size
 
-		this.setBackground(Color.white);
+		this.setBackground(Color.white); // background color
 		g2d.translate(275, 75);
 		g2d.rotate(Math.toRadians(45)); // rotate the grid
 		for (int x = 0; x < 12; x++) {
@@ -36,7 +30,7 @@ public class GridView extends JPanel {
 						g2d.setColor(Color.green);
 						g2d.fillRect(x * gridSize-50, y * gridSize-50, gridSize, gridSize);
 					}
-					g2d.setColor(Color.black);
+					g2d.setColor(Color.black);  // bounds color
 					g2d.drawRect(x * gridSize-50, y * gridSize-50, gridSize, gridSize);
 				}
 			}

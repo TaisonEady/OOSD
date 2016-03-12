@@ -6,7 +6,6 @@ import javax.swing.*;
 public class BoardView {
 	
 	public void drawBoard(){
-		
 		try {
 			// use current OS windows style
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

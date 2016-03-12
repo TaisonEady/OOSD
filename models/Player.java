@@ -7,25 +7,33 @@ package models;
 
 import java.util.*;
 
-
 /**
  *
  * @author teady
  */
-public class Player {
+public abstract class Player {
     
-    private String name;
-    private ArrayList<Unit> units;
-    private int unitCount;
-
+    protected String name;
+    protected ArrayList<Unit> units;
+    protected int unitCount;
+    
     public String getName(){
-        return this.name;
+        return name;
     }
     
     public void setName(String name){
         this.name = name;
         return;
     }
+  
+    public void attack(){
+		
+	}
+    
+    public void useAbility(){
+    	
+    }
+
     
     public boolean addUnit(Unit unit){
         boolean status = false;
@@ -34,8 +42,7 @@ public class Player {
     }
     
     public Unit getUnit(){
-        
-        
+          
         return null;
     }
     

@@ -5,8 +5,6 @@
  */
 package main;
 
-import views.BoardView;
-
 /**
  *
  * @author teady
@@ -18,8 +16,12 @@ public class TheChase {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    	System.out.println("Hello World"); //This is some test code to see if the git intergration worked.
-    	BoardView bv = new BoardView();
-    	bv.drawBoard();
+    	System.out.println("Hello World\n"); //This is some test code to see if the git intergration worked.
+    	
+    	// test Model and View, you can block View/Model to test another
+
+    	Test tester = new Test();
+    	tester.testView();
+    	tester.testModel();
     }
 }
