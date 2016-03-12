@@ -1,3 +1,11 @@
+/*
+ *  OSSD Asignment 1 - The Chase
+ *  Charles Yim - S3570764
+ *  Jacob Paris - S3238163
+ *  Chen Liu- S3481556
+ *  Taison Eady - S3282633
+ */
+
 package main;
 
 import models.*;
@@ -15,39 +23,39 @@ public class Test {
     	
     	// the test code
     	// three guardians
-    	Guardian behemoth = new Behemoth();
-    	System.out.println(behemoth.getName() + " says hello!.");
+    	Unit behemoth = new Behemoth();
+    	System.out.println(behemoth.toString() + " says hello!.");
     	behemoth.attack();
     	System.out.println("");
     	
-    	Guardian hunter = new Hunter();
-    	System.out.println(hunter.getName() + " says hello!.");
+    	Unit hunter = new Hunter();
+    	System.out.println(hunter.toString() + " says hello!.");
     	hunter.attack();
     	System.out.println("");
     	
-    	Guardian golem = new Golem();
-    	System.out.println(golem.getName() + " says hello!.");
+    	Unit golem = new Golem();
+    	System.out.println(golem.toString() + " says hello!.");
     	golem.attack();
     	System.out.println("");
     	
     	// four explorers
-    	Explorer scout = new Scout();
-    	System.out.println(scout.getName() + " says hello!.");
+    	Unit scout = new Scout();
+    	System.out.println(scout.toString() + " says hello!.");
     	scout.useAbility();
     	System.out.println("");
     	
-    	Explorer trapMaster = new TrapMaster();
-    	System.out.println(trapMaster.getName() + " says hello!.");
+    	Unit trapMaster = new TrapMaster();
+    	System.out.println(trapMaster.toString() + " says hello!.");
     	trapMaster.useAbility();
     	System.out.println("");
     	
-    	Explorer hero = new Hero();
-    	System.out.println(hero.getName() + " says hello!.");
+    	Unit hero = new Hero();
+    	System.out.println(hero.toString() + " says hello!.");
     	hero.useAbility();
     	System.out.println("");
     	
-    	Explorer tactician = new Tactician();
-    	System.out.println(tactician.getName() + " says hello!.");
+    	Unit tactician = new Tactician();
+    	System.out.println(tactician.toString() + " says hello!.");
     	tactician.useAbility();
     	System.out.println("");
     	

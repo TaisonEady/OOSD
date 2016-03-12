@@ -1,16 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  OSSD Asignment 1 - The Chase
+ *  Charles Yim - S3570764
+ *  Jacob Paris - S3238163
+ *  Chen Liu- S3481556
+ *  Taison Eady - S3282633
  */
+
 package models;
 
-
-
-/**
- *
- * @author teady
- */
-public class Unit {
+public abstract class Unit {
+    
+    public abstract boolean move();
+    
+    public abstract boolean attack();
+    
+    public abstract boolean useAbility();
+    
+    @Override
+    public String toString(){
+       return this.getClass().getSimpleName();
+    }
     
 }

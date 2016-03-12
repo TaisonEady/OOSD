@@ -1,23 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  OSSD Asignment 1 - The Chase
+ *  Charles Yim - S3570764
+ *  Jacob Paris - S3238163
+ *  Chen Liu- S3481556
+ *  Taison Eady - S3282633
  */
+
 package main;
 
-/**
- *
- * @author teady
- */
 public class TheChase {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    	System.out.println("Hello World\n"); //This is some test code to see if the git intergration worked.
-    	
+        
     	// test Model and View, you can block View/Model to test another
 
     	Test tester = new Test();

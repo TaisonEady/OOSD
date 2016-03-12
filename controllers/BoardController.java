@@ -5,14 +5,11 @@
  *  Chen Liu- S3481556
  *  Taison Eady - S3282633
  */
-
-//Not sure if this player controller will be needed yet...
-
 package controllers;
 
-public class PlayerController {
+public class BoardController {
 
-    PlayerController(GameController gameController) {
+    BoardController(GameController gameController) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

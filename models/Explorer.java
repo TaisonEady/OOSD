@@ -1,6 +1,6 @@
 package models;
 
-public abstract class Explorer extends Player{
+public abstract class Explorer extends Unit{
 
 
 }

@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  OSSD Asignment 1 - The Chase
+ *  Charles Yim - S3570764
+ *  Jacob Paris - S3238163
+ *  Chen Liu- S3481556
+ *  Taison Eady - S3282633
  */
 package models;
 
@@ -11,11 +13,11 @@ import java.util.*;
  *
  * @author teady
  */
-public abstract class Player {
+public class Player {
     
-    protected String name;
-    protected ArrayList<Unit> units;
-    protected int unitCount;
+    private String name;
+    private ArrayList<Unit> units;
+    private int unitCount;
     
     public String getName(){
         return name;
@@ -25,16 +27,7 @@ public abstract class Player {
         this.name = name;
         return;
     }
-  
-    public void attack(){
-		
-	}
-    
-    public void useAbility(){
-    	
-    }
-
-    
+      
     public boolean addUnit(Unit unit){
         boolean status = false;
         

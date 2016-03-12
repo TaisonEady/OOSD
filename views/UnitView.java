@@ -7,10 +7,6 @@
  */
 package views;
 
-/**
- *
- * @author teady
- */
 public class UnitView {
     
 }
