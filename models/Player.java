@@ -17,7 +17,6 @@ public class Player {
     
     private String name;
     private ArrayList<Unit> units;
-    private int unitCount;
     
     public String getName(){
         return name;

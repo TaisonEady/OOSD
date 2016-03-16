@@ -10,10 +10,23 @@
 
 package controllers;
 
+import models.Player;
+import views.PlayerNameView;
+
 public class PlayerController {
+    
+    GameController gameController;
 
     PlayerController(GameController gameController) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.gameController = gameController;
+        
     }
     
+    public Player newPlayer(String team){
+        
+        PlayerNameView playerNameView = new PlayerNameView(team);
+        
+        return null;
+    }
+        
 }

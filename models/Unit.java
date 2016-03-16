@@ -8,7 +8,19 @@
 
 package models;
 
+
+
 public abstract class Unit {
+    
+    final int ALIVE = 1;
+    final int DEAD = 0;
+    
+    private int status;
+    private int xPos,yPos;
+
+    public Unit() {
+        this.status = ALIVE;
+    }
     
     public abstract boolean move();
     
@@ -19,6 +31,14 @@ public abstract class Unit {
     @Override
     public String toString(){
        return this.getClass().getSimpleName();
+    }
+    
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
     
 }

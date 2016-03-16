@@ -22,4 +22,6 @@ public class GameController {
         //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
     }
     
+    
+    
 }

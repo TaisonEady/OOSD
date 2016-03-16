@@ -18,7 +18,7 @@ public class PlayerNameView extends javax.swing.JPanel {
     public PlayerNameView(String playerTeam) {
         initComponents();
         
-        lblPlayerTeam.setName(playerTeam);
+        lblPlayerTeam.setName(playerTeam + " Player");
     }
 
     /**

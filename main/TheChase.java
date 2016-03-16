@@ -20,5 +20,7 @@ public class TheChase {
     	Test tester = new Test();
     	tester.testView();
     	tester.testModel();
+        
+        
     }
 }
