@@ -15,8 +15,8 @@ public class Test {
 
 	public void testView(){
     	// the test code
-    	BoardView bv = new BoardView();
-    	bv.drawBoard(); 
+    	MainMenu bv = new MainMenu();
+    	bv.startGame();
     }
     
     public void testModel(){

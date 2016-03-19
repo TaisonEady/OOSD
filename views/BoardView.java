@@ -11,9 +11,9 @@ package views;
 import java.awt.*;
 import javax.swing.*;
 
-public class BoardView {
+public class BoardView extends JFrame{
 	
-	public void drawBoard(){
+	public BoardView(){
 		try {
 			// use current OS windows style
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -26,7 +26,6 @@ public class BoardView {
 		// center the window
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.getContentPane().add(new GridView());
 	}
 }
