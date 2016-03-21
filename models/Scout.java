@@ -2,11 +2,15 @@ package models;
 
 public class Scout extends Explorer{
 
-    public Scout() {
 
-    }
 
-    public boolean useAbility(){
+    public Scout(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
+
+	public boolean useAbility(){
         System.out.println("Scout use ability");
         return true;
     }

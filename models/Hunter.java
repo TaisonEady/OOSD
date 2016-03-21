@@ -10,11 +10,14 @@ package models;
 
 public class Hunter extends Guardian {
 	
-    public Hunter(){
 
-    }
+    public Hunter(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
+	@Override
     public boolean attack(){
         System.out.println("Hunter attack!!!");
         return true;

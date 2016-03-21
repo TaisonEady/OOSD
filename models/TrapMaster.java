@@ -2,11 +2,14 @@ package models;
 
 public class TrapMaster extends Explorer{
 
-    public TrapMaster() {
 
-    }
+    public TrapMaster(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
 
-    public boolean useAbility(){
+	public boolean useAbility(){
         System.out.println("TrapMaster use ability");
         return true;
     }

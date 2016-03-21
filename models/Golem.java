@@ -1,12 +1,14 @@
 package models;
 
 public class Golem extends Guardian {
-	
-    public Golem(){
 
-    }
+    public Golem(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
+	@Override
     public boolean attack(){
         System.out.println("Golem attack!!!");
         return true;

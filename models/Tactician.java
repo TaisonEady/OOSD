@@ -10,11 +10,15 @@ package models;
 
 public class Tactician extends Explorer{
 
-    public Tactician() {
 
-    }
 
-    @Override
+    public Tactician(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public boolean useAbility(){
         System.out.println("Tactician use ability");
         return true;

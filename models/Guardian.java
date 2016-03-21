@@ -10,5 +10,11 @@ package models;
 
 public abstract class Guardian extends Unit {
 
+	public Guardian(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
+
 	
 }

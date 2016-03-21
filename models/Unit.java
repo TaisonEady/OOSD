@@ -12,15 +12,18 @@ package models;
 
 public abstract class Unit {
     
-    final int ALIVE = 1;
-    final int DEAD = 0;
-    
-    private int status;
-    private int xPos,yPos;
-
-    public Unit() {
-        this.status = ALIVE;
+    private boolean alive;
+	private int[] pos = new int[2] ;
+	//pos[0] = xPos
+	//pos[1] = yPos
+	private boolean onBoard;
+	
+    public Unit(int x, int y, boolean alive) {
+    	this.pos[0] = x;
+    	this.pos[1]= y;
+    	this.alive = alive;
     }
+    
     
     public abstract boolean move();
     
@@ -33,12 +36,15 @@ public abstract class Unit {
        return this.getClass().getSimpleName();
     }
     
-    public int getStatus() {
-        return status;
+    public boolean isAlive() {
+        return this.alive;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(boolean alive) {
+        this.alive = alive;
+    }
+    public int[] getPos(){
+    	return pos ;
     }
     
 }

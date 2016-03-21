@@ -2,11 +2,14 @@ package models;
 
 public class Behemoth extends Guardian {
 	
-    public Behemoth(){
 
-    }
+    public Behemoth(int x, int y, boolean alive)
+	{
+		super(x, y, alive);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
+	@Override
     public boolean attack(){
         System.out.println("Behemoth attack!!!");
         return true;
