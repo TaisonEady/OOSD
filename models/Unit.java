@@ -23,9 +23,15 @@ public abstract class Unit {
     	this.pos[1]= y;
     	this.alive = alive;
     }
+    public void setPos(int x, int y)
+    {
+    	pos[0]=x;
+    	pos[1]=y;
+    }
     
+    public abstract void moveable();
     
-    public abstract boolean move();
+    public abstract boolean move(int x, int y);
     
     public abstract boolean attack();
     
@@ -45,6 +51,12 @@ public abstract class Unit {
     }
     public int[] getPos(){
     	return pos ;
+    }
+    public int getX(){
+    	return pos[0];
+    }
+    public int getY(){
+    	return pos[1];
     }
     
 }

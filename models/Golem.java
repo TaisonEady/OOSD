@@ -15,7 +15,7 @@ public class Golem extends Guardian {
     }
 
     @Override
-    public boolean move() {
+    public boolean move(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -23,5 +23,12 @@ public class Golem extends Guardian {
     public boolean useAbility() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+	@Override
+	public void moveable()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 }

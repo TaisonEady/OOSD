@@ -13,10 +13,14 @@ public class TrapMaster extends Explorer{
         System.out.println("TrapMaster use ability");
         return true;
     }
-
     @Override
-    public boolean move() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean move(int x, int y) {
+    	boolean result =super.move(x, y);
+    	if(result ==true)
+    	System.out.println(this.getClass().getName()+" moved to target squre.");
+    	else
+    		System.out.println(this.getClass().getName()+" unable to move over there.");
+    	return result;
     }
 
     @Override
