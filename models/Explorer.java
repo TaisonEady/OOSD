@@ -8,6 +8,13 @@ public abstract class Explorer extends Unit
 		super(x, y, alive);
 		// TODO Auto-generated constructor stub
 	}
+	public boolean attack(int[] pos)
+	{
+		
+		
+		return false;
+		
+	}
 
 	public void moveable()
 	{

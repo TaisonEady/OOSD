@@ -17,7 +17,25 @@ public class Behemoth extends Guardian {
 
     @Override
     public boolean move(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	int rollCount = 1;
+		// ^ need to pass a roll count ^
+    	if (Math.abs(super.getX()-x) != 0 && Math.abs(super.getY()-y)==0)
+    	{
+    		if(Math.abs(super.getX()-x) <rollCount +1)
+    		{
+    			super.setPos(x, y);
+    			return true;
+    		}
+    	}
+    	else if (Math.abs(super.getY()-y) != 0 && Math.abs(super.getX()-x)==0)
+		{
+    		if(Math.abs(super.getY()-y) <rollCount +1)
+    		{
+    			super.setPos(x, y);
+    			return true;
+    		}
+		}
+    	return false;
     }
 
     @Override
