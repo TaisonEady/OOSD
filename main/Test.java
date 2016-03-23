@@ -9,18 +9,38 @@
 package main;
 
 import controllers.*;
+import java.util.Arrays;
 import models.*;
 import views.*;
 
 public class Test {
     
     public void testController(){
-        GameController gameController = new GameController();
-        Player guardian = gameController.getPlayerController().newPlayer("Guardian");
-        Player explorer = gameController.getPlayerController().newPlayer("Explorer");
+       GameController gameController = new GameController();
+       //Player guardian = gameController.getPlayerController().newPlayer("Guardian");
+       Player explorer = gameController.getPlayerController().newPlayer("Explorer");
+//        
+//        System.out.println(guardian.getName());
+//        System.out.println(explorer.getName());
+
+        gameController.setCurrentPlayer(explorer);
         
-        System.out.println(guardian.getName());
-        System.out.println(explorer.getName());
+        UnitController unitController = new UnitController(gameController);
+
+        Unit Hero = new Hero(9,9,true);
+//        for(int i=0; i < unitController.movable(Hero).length; i++){
+//            for(int j=0; j<unitController.movable(Hero)[i].length; j++){
+//                System.out.println(unitController.movable(Hero)[i][j]);
+//            }
+//        }
+        
+        System.out.println(Arrays.deepToString(unitController.movable(Hero)));
+        
+        
+        
+        
+        
+        
         
     }
     
