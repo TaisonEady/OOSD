@@ -46,8 +46,8 @@ public class Test {
     
     public void testView(){
     	// the test code
-//    	MainMenu bv = new MainMenu();
-//    	bv.startGame();
+    	MainMenu bv = new MainMenu();
+    	bv.startGame();
     }
     
     public void testModel(){

@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,18 @@ public class MainMenu {
 		
 		startGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BoardView board = new BoardView();
+				// Create a frame
+				JFrame frame = new JFrame("Board");
+
+				// Create an instance of the applet
+				Board applet = new Board();
+
+				// Add the applet instance to the frame
+				frame.add(applet, BorderLayout.CENTER);
+
+				// Display the frame
+				frame.setSize(700, 700);
+				frame.setVisible(true);
 			};
 		});
 		
