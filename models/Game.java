@@ -1,21 +1,38 @@
 package models;
 
-public class Game {
-    private final Player explorerPlayer;
-    private final Player guardianPlayer;
+import java.util.*;
 
-    public Game(Player explorerPlayer, Player guardianPlayer){
-        this.explorerPlayer = explorerPlayer;
-        this.guardianPlayer = guardianPlayer;
+public class Game {
+    
+    private HashMap<String, Player> players;
+    
+
+    public Game(){
+
     }
     
-    public Player getExplorerPlayer() {
-        return explorerPlayer;
+    public boolean addPlayer(String playerTeam, Player newPlayer) throws Exception {
+        
+        Player existingPlayer = players.put(playerTeam, newPlayer);
+        
+        if(existingPlayer == null){
+            return true;
+        }else{
+            throw new Exception("Player already exists.");
+        }
+        
+    }
+    
+    public Player getPlayer(String playerTeam) throws Exception{
+        Player player = players.get(playerTeam);
+        
+        if(player == null){
+            throw new Exception("Specified player does not exist.");
+        }else{
+            return player;
+        }
     }
 
-    public Player getGuardianPlayer() {
-        return guardianPlayer;
-    }
     
 
 }

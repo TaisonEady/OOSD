@@ -9,33 +9,56 @@ package models;
 
 import java.util.*;
 
-/**
- *
- * @author teady
- */
 public class Player {
+
+    private final String name;
+    private final String team;
+    private HashMap<String, Unit> units;
+    private int currentRoll;
+    private int remainingMoves;
     
-    private String name;
-    private ArrayList<Unit> units;
+    public Player(String name, String team) {
+        this.name = name;
+        this.team = team;
+    }
     
     public String getName(){
         return name;
     }
     
-    public void setName(String name){
-        this.name = name;
-        return;
+    public String getTeam() {
+        return team;
     }
-      
-    public boolean addUnit(Unit unit){
-        boolean status = false;
+
+    public boolean addUnit(String unitType, Unit unit)throws Exception{
+        Unit existingUnit = units.put(unitType, unit);
         
-        return status;
+        if(existingUnit == null){
+            return true;
+        }else{
+            throw new Exception("Unit already exists.");
+        }
     }
     
     public Unit getUnit(){
           
         return null;
     }
-    
+
+    public int getCurrentRoll() {
+        return currentRoll;
+    }
+
+    public void setCurrentRoll(int currentRoll) {
+        this.currentRoll = currentRoll;
+    }
+
+    public int getRemainingMoves() {
+        return remainingMoves;
+    }
+
+    public void subtractRemainingMoves(int movesToSubtract) {
+        this.remainingMoves -= movesToSubtract;
+    }
+          
 }

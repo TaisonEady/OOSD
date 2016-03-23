@@ -10,8 +10,8 @@
 
 package controllers;
 
+import javax.swing.*;
 import models.Player;
-import views.PlayerNameView;
 
 public class PlayerController {
     
@@ -19,14 +19,41 @@ public class PlayerController {
 
     PlayerController(GameController gameController) {
         this.gameController = gameController;
-        
     }
     
     public Player newPlayer(String team){
+
+        //System.out.println(getNameInput(team) + "! Leader of the " +team+"s.");
+        boolean accepted = false;
+        String name = null;
         
-        PlayerNameView playerNameView = new PlayerNameView(team);
+        while(!accepted) {            
+            try {
+                name = validatedName(getNameInput(team));
+                accepted = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, 
+                        "Your name must be between 1 and 50 characters long.");
+            }
+        }
         
-        return null;
+        Player newPlayer = new Player(name, team);
+
+        return newPlayer;
     }
+    
+    //This is kind of view code but it seemed too simple to maka a view class just for this method...
+    public String getNameInput(String team){
+        String playerName = (String)JOptionPane.showInputDialog(
+        "What is your name " + team + "?");
         
+        return playerName;
+    }
+
+    private String validatedName(String nameInput) throws Exception{
+        if(nameInput.length() < 1 || nameInput.length() > 50){
+            throw new Exception("Name length is out of bounds");
+        }
+        return nameInput;
+    }
 }
