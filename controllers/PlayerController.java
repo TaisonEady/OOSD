@@ -43,7 +43,7 @@ public class PlayerController {
     }
     
     //This is kind of view code but it seemed too simple to maka a view class just for this method...
-    public String getNameInput(String team){
+    private String getNameInput(String team){
         String playerName = (String)JOptionPane.showInputDialog(
         "What is your name " + team + "?");
         

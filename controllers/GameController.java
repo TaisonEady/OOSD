@@ -13,18 +13,31 @@ import main.*;
 public class GameController {
     private Game game;
     
-    private PlayerController playerController;
+    private final PlayerController playerController;
+    private final UnitController unitController;
+    //private BoardController boardController;
+    
+    private Player currentPlayer;
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+    
+    private static DiceUtility dice;
 
     //getter for testing only
     public PlayerController getPlayerController() {
         return playerController;
     }
-    //private BoardController boardController;
-    private static DiceUtility dice;
     
     public GameController(){
         playerController = new PlayerController(this);
         //boardController = new BoardController(this);
+        unitController = new UnitController(this);
         dice = new DiceUtility();
         
         //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
@@ -32,7 +45,5 @@ public class GameController {
     public int rollDice(){
         return dice.roll();
     }
-    
-    
     
 }

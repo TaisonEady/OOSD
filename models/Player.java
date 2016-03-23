@@ -57,6 +57,10 @@ public class Player {
         return remainingMoves;
     }
 
+    public void resetRemainingMoves(){
+        remainingMoves = currentRoll;
+    }
+    
     public void subtractRemainingMoves(int movesToSubtract) {
         this.remainingMoves -= movesToSubtract;
     }
