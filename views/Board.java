@@ -6,9 +6,12 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 public class Board extends JApplet {
+	
+	int row = 20;
+	int column = 20;
 
 	// Create and initialize cells
-	private Cell[][] cells = new Cell[12][12];
+	private Cell[][] cells = new Cell[row][column];
 
 	// Create and initialize a status label
 	private JLabel jlblStatus = new JLabel("Start Game");
@@ -16,9 +19,9 @@ public class Board extends JApplet {
 	/** Initialize UI */
 	public Board() {
 		// Panel p to hold cells
-		JPanel p = new JPanel(new GridLayout(12, 12, 0, 0));
-		for (int y = 0; y < 12; y++)
-			for (int x = 0; x < 12; x++)
+		JPanel p = new JPanel(new GridLayout(row, column, 0, 0));
+		for (int y = 0; y < column; y++)
+			for (int x = 0; x < row; x++)
 				p.add(cells[y][x] = new Cell(y, x));
 
 		// Set line borders on the cells panel and the status label
@@ -54,30 +57,22 @@ public class Board extends JApplet {
 			super.paintComponent(g);
 			this.setBackground(Color.white); // background color
 			int gridSize = 100;
-			if ((xPos == 0 && yPos == 0) || (xPos == 0 && yPos == 11) || (xPos == 11 && yPos == 0)) { // set
-				// Guardian
-				// start
-				// point
+			if ((xPos == 0 && yPos == 0) || (xPos == 0 && yPos == column-1) || 
+					(xPos == column-1 && yPos == 0)) { // set Guardian start point
 				g.setColor(Color.gray);
 				g.fillRect(0, 0, 100, 100);
-			} else if (xPos == 0 || yPos == 0 || xPos == 11 || yPos == 11) {
+			} else if (xPos == 0 || yPos == 0 || xPos == row-1 || yPos == column-1) {
 				g.setColor(Color.black);
 				g.fillRect(0, 0, 100, 100);
 			}
-			if (xPos != 0 && yPos != 0 && xPos != 11 && yPos != 11) { // set
-																		// normal
-																		// grid
-				if ((xPos == 1 && yPos == 1) || (xPos == 1 && yPos == 2) || (xPos == 2 && yPos == 1)) { // set
-					// the
-					// gate
-					// color
+			if (xPos != 0 && yPos != 0 && xPos != row-1 && yPos != column-1) { // set normal grid
+				if ((xPos == 1 && yPos == 1) || (xPos == 1 && yPos == 2) ||
+						(xPos == 2 && yPos == 1)) { // set the gate color
 					g.setColor(Color.blue);
 					g.fillRect(0, 0, gridSize, gridSize);
-				} else if ((xPos == 10 && yPos == 10) || (xPos == 10 && yPos == 9) || (xPos == 9 && yPos == 10)
-						|| (xPos == 9 && yPos == 9)) { // set
-					// Explorer
-					// start
-					// point
+				} else if ((xPos == row-2 && yPos == column-2) || (xPos == row-2 && yPos == column-3) || 
+						(xPos == row-3 && yPos == column-2)|| (xPos == row-3 && yPos == column-3)) { 
+					// set Explorer start point
 					g.setColor(Color.green);
 					g.fillRect(0, 0, gridSize, gridSize);
 				}
@@ -91,7 +86,6 @@ public class Board extends JApplet {
 			/** Handle mouse click on a cell */
 			public void mouseClicked(MouseEvent e) {
 				jlblStatus.setText(String.valueOf(xPos) + ", " + String.valueOf(yPos));
-
 			}
 		}
 	}

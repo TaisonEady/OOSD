@@ -10,18 +10,17 @@ package main;
 
 public class TheChase {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-    	// test Model and View, you can block View/Model to test another
+	/**
+	 * @param args
+	 *            the command line arguments
+	 */
+	public static void main(String[] args) {
 
-    	Test tester = new Test();
-    	tester.testView();
-    	tester.testModel();
-        tester.testController();
-        
-        
-    }
+		// test Model and View, you can block View/Model to test another
+
+		Test tester = new Test();
+		tester.testView();
+		tester.testModel();
+		tester.testController();
+	}
 }
