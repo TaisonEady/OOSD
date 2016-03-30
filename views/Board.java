@@ -34,6 +34,9 @@ public class Board extends JApplet {
 	}
 
 	// An inner class for a cell
+	
+	//TODO change Cell to use Unit
+	//TODO change Cell to grab image from Unit
 	public class Cell extends JPanel {
 		int xPos;
 		int yPos;
