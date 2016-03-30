@@ -12,12 +12,34 @@ import main.*;
 
 public class GameController {
     private Game game;
-    
     private final PlayerController playerController;
     private final UnitController unitController;
     //private BoardController boardController;
     
     private Player currentPlayer;
+    
+    public void startGame(){
+        //TODO get menu
+        //TODO if menu true call init
+        //TODO start turn(Player)
+        //TODO start turn(Player 2)
+        //TODO FUTURE loop turns
+    }
+    
+    public init(){
+        //TODO create players and units
+        //TODO create board object
+    }
+    
+    public void turn(Player player){
+        //TODO roll dice
+        //TODO select unit --> waiting -->  if yes moveable (view), else no nothing
+        //TODO select destination --> waiting --> if yes move, else do nothing
+        //TODO ASSIGNMENT 2 - attack phase + ability phase
+        //TODO end
+    }
+    
+    
 
     public Player getCurrentPlayer() {
         return currentPlayer;
