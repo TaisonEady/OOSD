@@ -6,6 +6,13 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import models.Unit;
+import models.Explorer.Hero;
+import models.Explorer.Scout;
+import models.Explorer.Tactician;
+import models.Explorer.TrapMaster;
+import models.Guardians.Behemoth;
+import models.Guardians.Golem;
+import models.Guardians.Hunter;
 import models.Item.*;
 
 
@@ -29,7 +36,15 @@ public class BoardView extends JApplet {
 				
 				if ((x==0 && y==0) || (x==0 && y==column-1) || 
 						(x==column-1 && y==0)) { // set Guardian start point
-					p.add(cells[y][x] = new Cell(y,x, new GuardianStartPoint(x,y)));
+					if (x==0 && y==0){
+						p.add(cells[y][x] = new Cell(y,x, new Behemoth(x,y)));
+					}
+					else if (x==0 && y==column-1){
+						p.add(cells[y][x] = new Cell(y,x, new Hunter(x,y)));
+					}
+					else if (x==column-1 && y==0){
+						p.add(cells[y][x] = new Cell(y,x, new Golem(x,y)));
+					}
 				}
 				
 			    else if ((x==0 && y==0) || (x==0 && y==1) ||
@@ -41,7 +56,18 @@ public class BoardView extends JApplet {
 						(x==row-1 && y==column-2) || 
 						(x==row-2 && y==column-1)|| 
 						(x==row-2 && y==column-2)) { // set Explorer start point
-					p.add(cells[y][x] = new Cell(y,x, new ExplorerStartPoint(x,y)));
+					if (x==row-1 && y==column-1) {
+						p.add(cells[y][x] = new Cell(y,x, new Hero(x,y)));
+					}
+					else if	(x==row-1 && y==column-2) {
+						p.add(cells[y][x] = new Cell(y,x, new TrapMaster(x,y)));
+					}
+					else if (x==row-2 && y==column-1){
+						p.add(cells[y][x] = new Cell(y,x, new Tactician(x,y)));
+					}
+					else if (x==row-2 && y==column-2){
+						p.add(cells[y][x] = new Cell(y,x, new Scout(x,y)));
+					}
 				}
 					
 				else{
