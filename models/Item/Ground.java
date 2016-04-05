@@ -8,6 +8,6 @@ public class Ground extends BoardItem{
 	
 	public Ground(int x, int y){
 		super(x, y);
-		icon = new ImageIcon("src/image/ground.png");
+		icon = new ImageIcon("bin/images/ground.png");
 	}
 }

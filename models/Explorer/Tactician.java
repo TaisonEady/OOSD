@@ -17,7 +17,7 @@ public class Tactician extends Explorer{
     public Tactician(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("src/image/tactician.png");
+		icon = new ImageIcon("bin/images/tactician.png");
 		// TODO Auto-generated constructor stub
 	}
 

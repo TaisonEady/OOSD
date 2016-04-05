@@ -8,7 +8,7 @@ public class TrapMaster extends Explorer{
     public TrapMaster(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("src/image/trapMaster.png");
+		icon = new ImageIcon("bin/images/trapMaster.png");
 		// TODO Auto-generated constructor stub
 	}
 

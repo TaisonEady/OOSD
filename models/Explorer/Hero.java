@@ -9,7 +9,7 @@ public class Hero extends Explorer{
     public Hero(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("src/image/hero.png");
+		icon = new ImageIcon("bin/images/hero.png");
 		// TODO Auto-generated constructor stub
 	}
 

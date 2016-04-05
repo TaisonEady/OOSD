@@ -8,7 +8,7 @@ public class Behemoth extends Guardian {
     public Behemoth(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("src/image/behemoth.png");
+		icon = new ImageIcon("bin/images/behemoth.png");
 		// TODO Auto-generated constructor stub
 	}
 

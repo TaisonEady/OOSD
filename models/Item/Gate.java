@@ -8,6 +8,6 @@ public class Gate extends BoardItem{
 	
 	public Gate(int x, int y){
 		super(x, y);
-		icon = new ImageIcon("src/images/gate.png");
+		icon = new ImageIcon("bin/images/gate.png");
 	}
 }

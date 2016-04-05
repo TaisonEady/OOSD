@@ -8,6 +8,6 @@ public class GuardianStartPoint extends BoardItem{
 	
 	public GuardianStartPoint(int x, int y){
 		super(x, y);
-		icon = new ImageIcon("src/image/guardianStartPoint.png");
+		icon = new ImageIcon("bin/images/guardianStartPoint.png");
 	}
 }
