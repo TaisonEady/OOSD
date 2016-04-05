@@ -89,7 +89,8 @@ public class BoardView extends JApplet {
 		private class MyMouseListener extends MouseAdapter {
 			/** Handle mouse click on a cell */
 			public void mouseClicked(MouseEvent e) {
-				jlblStatus.setText(String.valueOf(x) + ", " + String.valueOf(y));
+				jlblStatus.setText(unit.getClass().getName() + "    Position: " + 
+			String.valueOf(x) + ", " + String.valueOf(y));
 			}
 		}
 	}
