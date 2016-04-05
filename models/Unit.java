@@ -8,55 +8,16 @@
 
 package models;
 
-
+import javax.swing.ImageIcon;
 
 public abstract class Unit {
-    
-    private boolean alive;
-	private int[] pos = new int[2] ;
-	//pos[0] = xPos
-	//pos[1] = yPos
-	private boolean onBoard;
+	private int[] pos = new int[2];
+	public ImageIcon icon;
 	
-    public Unit(int x, int y, boolean alive) {
+    public Unit(int x, int y) {
     	this.pos[0] = x;
     	this.pos[1]= y;
-    	this.alive = alive;
-    }
-    public void setPos(int x, int y)
-    {
-    	pos[0]=x;
-    	pos[1]=y;
     }
     
-    public abstract void moveable();
-    
-    public abstract boolean move(int x, int y);
-    
-    public abstract boolean attack();
-    
-    public abstract boolean useAbility();
-    
-    @Override
-    public String toString(){
-       return this.getClass().getSimpleName();
-    }
-    
-    public boolean isAlive() {
-        return this.alive;
-    }
-
-    public void setStatus(boolean alive) {
-        this.alive = alive;
-    }
-    public int[] getPos(){
-    	return pos ;
-    }
-    public int getX(){
-    	return pos[0];
-    }
-    public int getY(){
-    	return pos[1];
-    }
     
 }

@@ -6,14 +6,17 @@
  *  Taison Eady - S3282633
  */
 
-package models;
+package models.Guardians;
+
+import javax.swing.ImageIcon;
 
 public class Hunter extends Guardian
 {
 
-	public Hunter(int x, int y, boolean alive)
+	public Hunter(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
+		icon = new ImageIcon("src/image/hunter.png");
 		// TODO Auto-generated constructor stub
 	}
 

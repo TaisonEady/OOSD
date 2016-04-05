@@ -1,20 +1,21 @@
-package models;
+package models.Explorer;
 
-public class Hero extends Explorer{
+import javax.swing.ImageIcon;
+
+public class TrapMaster extends Explorer{
 
 
-
-    public Hero(int x, int y, boolean alive)
+    public TrapMaster(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
+		icon = new ImageIcon("src/image/trapMaster.png");
 		// TODO Auto-generated constructor stub
 	}
 
 	public boolean useAbility(){
-        System.out.println("Hero use ability");
+        System.out.println("TrapMaster use ability");
         return true;
     }
-
     @Override
     public boolean move(int x, int y) {
     	boolean result =super.move(x, y);

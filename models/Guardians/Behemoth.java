@@ -1,11 +1,14 @@
-package models;
+package models.Guardians;
+
+import javax.swing.ImageIcon;
 
 public class Behemoth extends Guardian {
 	
 
-    public Behemoth(int x, int y, boolean alive)
+    public Behemoth(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
+		icon = new ImageIcon("src/image/behemoth.png");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -6,13 +6,15 @@
  *  Taison Eady - S3282633
  */
 
-package models;
+package models.Guardians;
 
-public abstract class Guardian extends Unit {
+import models.Character;
 
-	public Guardian(int x, int y, boolean alive)
+public abstract class Guardian extends Character {
+
+	public Guardian(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
 

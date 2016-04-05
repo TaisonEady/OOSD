@@ -11,6 +11,8 @@ package main;
 import controllers.*;
 import java.util.Arrays;
 import models.*;
+import models.Character;
+import models.Explorer.Hero;
 import views.*;
 
 public class Test {
@@ -27,7 +29,7 @@ public class Test {
         
         UnitController unitController = new UnitController(gameController);
 
-        Unit Hero = new Hero(9,9,true);
+        Character Hero = new Hero(9,9);
 //        for(int i=0; i < unitController.movable(Hero).length; i++){
 //            for(int j=0; j<unitController.movable(Hero)[i].length; j++){
 //                System.out.println(unitController.movable(Hero)[i][j]);

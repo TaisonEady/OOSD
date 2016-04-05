@@ -26,7 +26,7 @@ public class GameController {
         //TODO FUTURE loop turns
     }
     
-    public init(){
+    public void init(){
         //TODO create players and units
         //TODO create board object
     }

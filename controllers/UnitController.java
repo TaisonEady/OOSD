@@ -8,6 +8,7 @@
 package controllers;
 
 import models.*;
+import models.Character;
 
 public class UnitController {
     
@@ -17,7 +18,7 @@ public class UnitController {
         this.gameController = gameController;
     }
     
-    public int[][] movable(Unit unit){
+    public int[][] movable(Character unit){
         int rollCount = gameController.rollDice();//getCurrentPlayer().getRemainingMoves();
         
         System.out.println(rollCount);

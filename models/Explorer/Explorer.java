@@ -1,11 +1,13 @@
-package models;
+package models.Explorer;
 
-public abstract class Explorer extends Unit
+import models.Character;
+
+public abstract class Explorer extends Character
 {
 
-	public Explorer(int x, int y, boolean alive)
+	public Explorer(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
 	public boolean attack(int[] pos)

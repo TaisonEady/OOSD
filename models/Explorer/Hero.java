@@ -1,26 +1,20 @@
-/*
- *  OSSD Asignment 1 - The Chase
- *  Charles Yim - S3570764
- *  Jacob Paris - S3238163
- *  Chen Liu- S3481556
- *  Taison Eady - S3282633
- */
+package models.Explorer;
 
-package models;
+import javax.swing.ImageIcon;
 
-public class Tactician extends Explorer{
+public class Hero extends Explorer{
 
 
 
-    public Tactician(int x, int y, boolean alive)
+    public Hero(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
+		icon = new ImageIcon("src/image/hero.png");
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-    public boolean useAbility(){
-        System.out.println("Tactician use ability");
+	public boolean useAbility(){
+        System.out.println("Hero use ability");
         return true;
     }
 

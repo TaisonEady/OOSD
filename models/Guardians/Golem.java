@@ -1,10 +1,13 @@
-package models;
+package models.Guardians;
+
+import javax.swing.ImageIcon;
 
 public class Golem extends Guardian {
 
-    public Golem(int x, int y, boolean alive)
+    public Golem(int x, int y)
 	{
-		super(x, y, alive);
+		super(x, y);
+		icon = new ImageIcon("src/image/golem.png");
 		// TODO Auto-generated constructor stub
 	}
 

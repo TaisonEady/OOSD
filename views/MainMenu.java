@@ -23,7 +23,7 @@ public class MainMenu {
 				JFrame frame = new JFrame("Board");
 
 				// Create an instance of the applet
-				Board applet = new Board();
+				BoardView applet = new BoardView();
 
 				// Add the applet instance to the frame
 				frame.add(applet, BorderLayout.CENTER);
