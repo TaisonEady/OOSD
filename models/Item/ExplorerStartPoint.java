@@ -8,6 +8,6 @@ public class ExplorerStartPoint extends BoardItem{
 	
 	public ExplorerStartPoint(int x, int y){
 		super(x, y);
-		icon = new ImageIcon("bin/images/explorerStartPoint.png");
+//		icon = new ImageIcon("bin/images/explorerStartPoint.png");
 	}
 }

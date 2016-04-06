@@ -19,6 +19,7 @@ public class GameController {
     private Player currentPlayer;
     
     public void startGame(){
+    	
         //TODO get menu
         //TODO if menu true call init
         //TODO start turn(Player)
@@ -32,6 +33,7 @@ public class GameController {
     }
     
     public void turn(Player player){
+    	
         //TODO roll dice
         //TODO select unit --> waiting -->  if yes moveable (view), else no nothing
         //TODO select destination --> waiting --> if yes move, else do nothing

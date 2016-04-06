@@ -16,7 +16,7 @@ public class Hunter extends Guardian
 	public Hunter(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("bin/images/hunter.png");
+//		icon = new ImageIcon("bin/images/hunter.png");
 		// TODO Auto-generated constructor stub
 	}
 

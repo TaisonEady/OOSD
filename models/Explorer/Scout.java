@@ -9,7 +9,7 @@ public class Scout extends Explorer{
     public Scout(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("bin/images/scout.png");
+//		icon = new ImageIcon("bin/images/scout.png");
 		// TODO Auto-generated constructor stub
 	}
 

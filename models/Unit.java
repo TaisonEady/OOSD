@@ -17,6 +17,8 @@ public abstract class Unit {
     public Unit(int x, int y) {
     	this.pos[0] = x;
     	this.pos[1]= y;
+    	icon = new ImageIcon("bin/images/"+this.getClass().getSimpleName().toLowerCase()+".png");
+    	
     }
     
     

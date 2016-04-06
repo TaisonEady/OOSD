@@ -7,7 +7,7 @@ public class Golem extends Guardian {
     public Golem(int x, int y)
 	{
 		super(x, y);
-		icon = new ImageIcon("bin/images/golem.png");
+//		icon = new ImageIcon("bin/images/golem.png");
 		// TODO Auto-generated constructor stub
 	}
 
