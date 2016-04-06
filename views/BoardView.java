@@ -18,8 +18,8 @@ import models.Item.*;
 
 public class BoardView extends JApplet {
 	
-	int row = 20;
-	int column = 20;
+	int row = 12;
+	int column = 12;
 
 	// Create and initialize cells
 	private Cell[][] cells = new Cell[row][column];
@@ -75,6 +75,7 @@ public class BoardView extends JApplet {
 				}
 			}
 		}
+		
 		// Set line borders on the cells panel and the status label
 		p.setBorder(new LineBorder(Color.black, 1));
 		jlblStatus.setBorder(new LineBorder(Color.yellow, 1));
@@ -82,6 +83,10 @@ public class BoardView extends JApplet {
 		// Place the panel and the label to the applet
 		add(p, BorderLayout.CENTER);
 		add(jlblStatus, BorderLayout.SOUTH);
+	}
+	
+	public Cell[][] getCells(){
+		return cells;
 	}
 	
 
