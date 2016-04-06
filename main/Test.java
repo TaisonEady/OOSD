@@ -37,18 +37,12 @@ public class Test {
 //        }
         
         System.out.println(Arrays.deepToString(unitController.movable(Hero)));
-        
-        
-        
-        
-        
-        
-        
+
     }
     
     public void testView(){
     	// the test code
-    	MainMenu bv = new MainMenu();
+    	MainMenu_old bv = new MainMenu_old();
     	bv.startGame();
     }
     

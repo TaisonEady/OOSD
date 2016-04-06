@@ -10,7 +10,7 @@ package controllers;
 public class BoardController {
 
     BoardController(GameController gameController) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -6,21 +6,17 @@ public class Game {
     
     private HashMap<String, Player> players;
     
-
     public Game(){
-
+        players = new HashMap<>(); 
     }
     
-    public boolean addPlayer(String playerTeam, Player newPlayer) throws Exception {
+    public void addPlayer(String playerTeam, Player newPlayer) throws Exception {
         
         Player existingPlayer = players.put(playerTeam, newPlayer);
         
-        if(existingPlayer == null){
-            return true;
-        }else{
+        if(existingPlayer != null){
             throw new Exception("Player already exists.");
         }
-        
     }
     
     public Player getPlayer(String playerTeam) throws Exception{

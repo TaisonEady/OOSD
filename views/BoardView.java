@@ -79,6 +79,7 @@ public class BoardView extends JApplet {
 		p.setBorder(new LineBorder(Color.black, 1));
 		jlblStatus.setBorder(new LineBorder(Color.yellow, 1));
 
+<<<<<<< HEAD
 		// Place the panel and the label to the applet
 		add(p, BorderLayout.CENTER);
 		add(jlblStatus, BorderLayout.SOUTH);
@@ -121,3 +122,19 @@ public class BoardView extends JApplet {
 		}
 	}
 }
+=======
+public class BoardView extends JPanel{
+	
+    public BoardView(int numberOfRows, int numberOfColumns){
+        super(new GridLayout(numberOfRows, numberOfColumns, 0, 0));
+    }
+}
+
+        // Set line borders on the cells panel and the status label
+        p.setBorder(new LineBorder(Color.black, 1));
+        jlblStatus.setBorder(new LineBorder(Color.yellow, 1));
+
+        // Place the panel and the label to the applet
+        add(p, BorderLayout.CENTER);
+        add(jlblStatus, BorderLayout.SOUTH);
+>>>>>>> Taison
