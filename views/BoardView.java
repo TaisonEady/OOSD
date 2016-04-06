@@ -11,21 +11,17 @@ package views;
 import java.awt.*;
 import javax.swing.*;
 
-public class BoardView extends JFrame{
+public class BoardView extends JPanel{
 	
-	public BoardView(){
-		try {
-			// use current OS windows style
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		JFrame jFrame = new JFrame();
-		jFrame.setSize(810, 835);
-		// center the window
-		jFrame.setLocationRelativeTo(null);
-		jFrame.setVisible(true);
-		jFrame.getContentPane().add(new GridView());
-	}
+    public BoardView(int numberOfRows, int numberOfColumns){
+        super(new GridLayout(numberOfRows, numberOfColumns, 0, 0));
+    }
 }
+
+        // Set line borders on the cells panel and the status label
+        p.setBorder(new LineBorder(Color.black, 1));
+        jlblStatus.setBorder(new LineBorder(Color.yellow, 1));
+
+        // Place the panel and the label to the applet
+        add(p, BorderLayout.CENTER);
+        add(jlblStatus, BorderLayout.SOUTH);
