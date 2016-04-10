@@ -17,16 +17,16 @@ public class Scout extends Explorer{
         System.out.println("Scout use ability");
         return true;
     }
-    @Override
-    
-    public boolean move(int x, int y) {
-    	boolean result =super.move(x, y);
-    	if(result ==true)
-    	System.out.println(this.getClass().getName()+" moved to target squre.");
-    	else
-    		System.out.println(this.getClass().getName()+" unable to move over there.");
-    	return result;
-    }
+ //   @Override
+ //   
+//    public boolean move(int x, int y) {
+//    	boolean result =super.move(x, y);
+//    	if(result ==true)
+//    	System.out.println(this.getClass().getName()+" moved to target squre.");
+//    	else
+//    		System.out.println(this.getClass().getName()+" unable to move over there.");
+//    	return result;
+//    }
 
 
     @Override

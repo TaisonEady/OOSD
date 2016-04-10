@@ -27,7 +27,7 @@ public class Hunter extends Guardian
 		return true;
 	}
 
-	@Override
+//	@Override
 //	public boolean move(int x, int y)
 //	{
 //		int rollCount = 1;
