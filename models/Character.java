@@ -13,15 +13,11 @@ public abstract class Character extends Unit {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setPos(int x, int y)
-    {
-    	pos[0]=x;
-    	pos[1]=y;
-    }
+	
     
-    public abstract void moveable();
+    public abstract boolean moveable(int x, int y);
     
-    public abstract boolean move(int x, int y);
+//    public abstract boolean move(int x, int y);
     
     public abstract boolean attack();
     
@@ -39,14 +35,7 @@ public abstract class Character extends Unit {
     public void setStatus(boolean alive) {
         this.alive = alive;
     }
-    public int[] getPos(){
-    	return pos ;
-    }
-    public int getX(){
-    	return pos[0];
-    }
-    public int getY(){
-    	return pos[1];
-    }
+    
+
 
 }

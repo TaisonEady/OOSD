@@ -17,6 +17,16 @@ public class UnitController {
     public UnitController(GameController gameController) {
         this.gameController = gameController;
     }
+    public void move(Character unit,Unit target)
+    {
+    	if(target.getClass().getPackage().equals("models.Item"))
+    	{
+    		int currX = unit.getPos()[0];
+    		int currY = unit.getPos()[1];
+    		unit.setPos(target.getX(),target.getY());
+    		target.setPos(currX, currY);
+    	}
+    }
     
     public int[][] movable(Character unit){
         int rollCount = gameController.rollDice();//getCurrentPlayer().getRemainingMoves();
@@ -34,8 +44,9 @@ public class UnitController {
                     {
                         for (int j = -rollCount; j < 1 + rollCount; j++)
                         {
-                            if(i+j !=0)
+                            if(i+j !=0 && unit.moveable(i, j))
                             {
+                            	
                                 movePositions[count][0]= i + unit.getX();
                                 movePositions[count][1]= j + unit.getY();
                                 count++;

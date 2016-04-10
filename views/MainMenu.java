@@ -16,7 +16,7 @@ public class MainMenu {
 		JFrame mainMenu = new JFrame("Our JButton listener example");
 		JButton startGame = new JButton("Start Game");
 		JButton quitGame = new JButton("Quit Game");
-		
+		mainMenu.setResizable(false);
 		startGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Create a frame

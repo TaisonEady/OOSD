@@ -28,21 +28,21 @@ public class Hunter extends Guardian
 	}
 
 	@Override
-	public boolean move(int x, int y)
-	{
-		int rollCount = 1;
-		// ^ need to pass a roll count ^
-		if(Math.abs(super.getX()-x)==Math.abs(super.getY()-y))
-		{
-			if(Math.abs(super.getX()-x)<rollCount +1)
-			{
-				super.setPos(x, y);
-				return true;
-			}
-		}
-		return false;
-
-	}
+//	public boolean move(int x, int y)
+//	{
+//		int rollCount = 1;
+//		// ^ need to pass a roll count ^
+//		if(Math.abs(super.getX()-x)==Math.abs(super.getY()-y))
+//		{
+//			if(Math.abs(super.getX()-x)<rollCount +1)
+//			{
+//				super.setPos(x, y);
+//				return true;
+//			}
+//		}
+//		return false;
+//
+//	}
 
 	@Override
 	public boolean useAbility()
@@ -60,36 +60,41 @@ public class Hunter extends Guardian
 	}
 
 	@Override
-	public void moveable()
+	public boolean moveable(int x,int y)
 	{
-		int rollCount = 1;
-		// ^ need to pass a roll count ^
-		int max = 12;
-		// ^ need to pass a board max pos ^
-		if (rollCount != 0)
+		if(x==y)
 		{
-			for (int i = -rollCount; i < 1 + rollCount; i++)
-			{
-				if(i+i!=0)
-				{
-				if (super.getX() + i > 1 && super.getX() + i < max + 1)
-				{
-					if (super.getY() + i > 1 && super.getY() + i < max + 1)
-					{
-						// change board square color
-					}
-				}
-				if (super.getX() + i > 1 && super.getX() + i < max + 1)
-				{
-					if (super.getY() + -i > 1 && super.getY() + -i < max + 1)
-					{
-						// change board square color
-					}
-				}
-				}
-			}
-
+			return true;
 		}
+		return false;
+//		int rollCount = 1;
+//		// ^ need to pass a roll count ^
+//		int max = 12;
+//		// ^ need to pass a board max pos ^
+//		if (rollCount != 0)
+//		{
+//			for (int i = -rollCount; i < 1 + rollCount; i++)
+//			{
+//				if(i+i!=0)
+//				{
+//				if (super.getX() + i > 1 && super.getX() + i < max + 1)
+//				{
+//					if (super.getY() + i > 1 && super.getY() + i < max + 1)
+//					{
+//						// change board square color
+//					}
+//				}
+//				if (super.getX() + i > 1 && super.getX() + i < max + 1)
+//				{
+//					if (super.getY() + -i > 1 && super.getY() + -i < max + 1)
+//					{
+//						// change board square color
+//					}
+//				}
+//				}
+//			}
+//
+//		}
 	}
 
 }
