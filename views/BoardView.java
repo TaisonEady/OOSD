@@ -82,7 +82,13 @@ public class BoardView extends JApplet {
 
 		// Place the panel and the label to the applet
 		add(p, BorderLayout.CENTER);
-		add(jlblStatus, BorderLayout.SOUTH);
+		
+		//Add the 'HUD' bar at the bottom of the screen to provide instructions and buttons
+		add(new HudView().hud, BorderLayout.SOUTH);
+		
+		//Enable following line to show debug 'status' bar which shows information on cells clicked
+		//add(jlblStatus, BorderLayout.SOUTH);
+		
 	}
 	
 	public Cell[][] getCells(){
