@@ -121,7 +121,7 @@ public class BoardView extends JPanel {
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			this.setBackground(Color.white); // background color
-			ImageIcon icon = unit.icon;
+			ImageIcon icon = unit.getIcon();
 			g.drawImage(icon.getImage(),0,0,getSize().width,getSize().height,this);
 		}
 		
@@ -132,8 +132,5 @@ public class BoardView extends JPanel {
 		public void setUnit(Unit unit){
 			this.unit = unit;
 		}
-                
-                
-
 	}
 }

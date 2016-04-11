@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 
 public abstract class Unit {
 	private int[] pos = new int[2];
-	public ImageIcon icon;
+	private ImageIcon icon;
 	private int[] initPos = new int[2];
 	
     public Unit(int x, int y) {
@@ -38,5 +38,8 @@ public abstract class Unit {
     }
     public int[] getStartPos(){
     	return initPos ;
+    }
+    public ImageIcon getIcon(){
+    	return icon;
     }
 }
