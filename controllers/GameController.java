@@ -249,7 +249,7 @@ public class GameController {
 
 	private void cellClicked(Unit unit)
 	{
-		System.out.println(unit);
+		System.out.println(unit.getX() +"       "+unit.getY());
 
         }
     
