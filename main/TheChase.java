@@ -20,14 +20,15 @@ public class TheChase {
      */
     public static void main(String[] args) {
         
-        GameController gameController = new GameController();
         JFrame mainWindow = new JFrame();
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setSize(700,700);
         mainWindow.setVisible(true);
         
-        gameController.showMainMenu(mainWindow);
-
+        GameController gameController = new GameController(mainWindow);
+        
+        gameController.showMainMenu();
+        mainWindow.pack();
 
             // test Model and View, you can block View/Model to test another
 //		GameController gameController = new GameController();

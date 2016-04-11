@@ -24,6 +24,10 @@ import views.*;
 
 public class GameController {
     
+    //constants
+    private static final int ROWS = 12;
+    private static final int COLUMNS = 12;
+    
     //models
     private Game game;
     //private Board board;
@@ -32,6 +36,7 @@ public class GameController {
     //views
     private MainMenuView menu;
     private BoardView boardView;
+    private JFrame mainWindow;
     
     //controllers
     private final PlayerController playerController;
@@ -44,13 +49,18 @@ public class GameController {
     private static boolean initBoard;
     
     
-    private int row = 12;
-    private int column = 12;
-
-    private Cell[][] cells = new Cell[row][column];
-    //private BoardController boardController;
-    
     private Player currentPlayer;
+    
+    public GameController(JFrame mainWindow){
+        this.mainWindow = mainWindow;
+        
+        playerController = new PlayerController(this);
+        //boardController = new BoardController(this);
+        unitController = new UnitController(this);
+        dice = new DiceUtility();
+        
+        //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
+    }
     
     public void startGame(){
         System.out.println("Start Game");
@@ -63,6 +73,9 @@ public class GameController {
             System.out.println(e.getMessage());
         }
         
+        boardView = new BoardView(new BoardActionListener(),ROWS, COLUMNS);
+        mainWindow.getContentPane().add(boardView);
+        boardView.setVisible(true);
         //TODO start turn(Player)
         //TODO start turn(Player 2)
         //TODO FUTURE loop turns
@@ -79,7 +92,7 @@ public class GameController {
         //TODO create board object
     }
     
-    public void showMainMenu(JFrame mainWindow){
+    public void showMainMenu(){
 
         MenuActionListener listener = new MenuActionListener();
         menu = new MainMenuView(listener);
@@ -198,20 +211,12 @@ public class GameController {
         return playerController;
     }
     
-    public GameController(){
-        playerController = new PlayerController(this);
-        //boardController = new BoardController(this);
-        unitController = new UnitController(this);
-        dice = new DiceUtility();
-        
-        //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
-    }
     public int rollDice(){
         return dice.roll();
     }
     
     private void cellClicked(Unit unit) {
-        
+        System.out.println(unit);
     }
     
     private void quitGame() {

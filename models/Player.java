@@ -13,13 +13,14 @@ public class Player {
 
     private final String name;
     private final String team;
-    private HashMap<String, Unit> units;
+    private Map<String, Unit> units;
     private int currentRoll;
     private int remainingMoves;
     
     public Player(String name, String team) {
         this.name = name;
         this.team = team;
+        this.units = new HashMap<>();
     }
     
     public String getName(){
