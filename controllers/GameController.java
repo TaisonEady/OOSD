@@ -77,6 +77,7 @@ public class GameController {
         
         boardView = new BoardView(new BoardActionListener(),ROWS, COLUMNS);
         mainWindow.getContentPane().add(boardView);
+        mainWindow.pack();
         boardView.setVisible(true);
         
         
@@ -214,9 +215,7 @@ public class GameController {
 
     private void cellClicked(Unit unit) {
         System.out.println(unit);
-        
-
-        }
+    
     }
 
     private void quitGame() {

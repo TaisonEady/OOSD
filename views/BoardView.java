@@ -25,11 +25,9 @@ public class BoardView extends JPanel {
 	public BoardView(ActionListener listener, int rows, int columns) {
 		
 		super(new GridLayout(rows, columns, 0, 0));
-                
-                cells = new Cell[rows][columns];
-
-                
-                initCells(listener, rows, columns);
+		this.setPreferredSize(new Dimension(700,700));
+        cells = new Cell[rows][columns];
+        initCells(listener, rows, columns);
 
 		// Set line borders on the cells panel and the status label
 		this.setBorder(new LineBorder(Color.black, 1));
