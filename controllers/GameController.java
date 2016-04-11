@@ -7,43 +7,81 @@
  */
 package controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 import models.*;
-import models.Character;
 import models.Explorer.*;
 import models.Guardians.*;
 import models.Item.*;
 import views.BoardView.Cell;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import main.*;
+import views.*;
 
 public class GameController {
+    
+    //constants
+    private static final int ROWS = 12;
+    private static final int COLUMNS = 12;
+    
+    //models
     private Game game;
+    //private Board board;
+    //private Player currentPlayer;
+    
+    //views
+    private MainMenuView menu;
+    private BoardView boardView;
+    private JFrame mainWindow;
+    
+    //controllers
     private final PlayerController playerController;
     private final UnitController unitController;
+    private BoardController boardController;
+    
+    //Checks
     private static boolean initExplorer;
     private static boolean initGuardian;
     private static boolean initBoard;
     
-	private int row = 12;
-	private int column = 12;
-	
-	private Cell[][] cells = new Cell[row][column];
-    //private BoardController boardController;
     
     private Player currentPlayer;
     
+    public GameController(JFrame mainWindow){
+        this.mainWindow = mainWindow;
+        
+        playerController = new PlayerController(this);
+        //boardController = new BoardController(this);
+        unitController = new UnitController(this);
+        dice = new DiceUtility();
+        
+        //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
+    }
+    
     public void startGame(){
-
-        //TODO get menu
-        //TODO if menu true call init
+        System.out.println("Start Game");
+        initGame();
+        
+        try{
+            System.out.println("Explorer: " + game.getPlayer("Explorer").getName());
+            System.out.println("Guardian: " + game.getPlayer("Guardian").getName());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        boardView = new BoardView(new BoardActionListener(),ROWS, COLUMNS);
+        mainWindow.getContentPane().add(boardView);
+        boardView.setVisible(true);
         //TODO start turn(Player)
         //TODO start turn(Player 2)
         //TODO FUTURE loop turns
     }
     
-    public void init(){
+    public void initGame(){
     	Player guardian = getPlayerController().newPlayer("Guardian");
         Player explorer = getPlayerController().newPlayer("Explorer");
         initExplorerUnit(explorer);
@@ -52,6 +90,16 @@ public class GameController {
 
         //TODO create players and units
         //TODO create board object
+    }
+    
+    public void showMainMenu(){
+
+        MenuActionListener listener = new MenuActionListener();
+        menu = new MainMenuView(listener);
+        mainWindow.getContentPane().add(menu);
+
+        menu.setVisible(true);
+        
     }
     
     public void turn(Player player){
@@ -163,16 +211,48 @@ public class GameController {
         return playerController;
     }
     
-    public GameController(){
-        playerController = new PlayerController(this);
-        //boardController = new BoardController(this);
-        unitController = new UnitController(this);
-        dice = new DiceUtility();
-        
-        //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
-    }
     public int rollDice(){
         return dice.roll();
+    }
+    
+    private void cellClicked(Unit unit) {
+        System.out.println(unit);
+    }
+    
+    private void quitGame() {
+//        System.exit(0);
+          return;
+    }
+    
+    class MenuActionListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e) {
+            
+            String option = ((JButton)e.getSource()).getName();
+            
+            if(option == "startGame"){
+                startGame();
+            }else if(option == "options"){
+                System.out.println("show the options menu here.");
+            }else if(option == "quit"){
+                quitGame();
+            }
+            
+            menu.setVisible(false);
+        }
+
+    }
+    
+    class BoardActionListener implements ActionListener{
+        
+        public void actionPerformed(ActionEvent e) {
+            
+            Unit unit  = ((Cell)e.getSource()).getUnit();
+            
+            cellClicked(unit);
+
+        }
+
     }
     
 }
