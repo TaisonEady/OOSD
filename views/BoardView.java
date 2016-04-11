@@ -20,6 +20,9 @@ public class BoardView extends JPanel {
 	
 	// Create and initialize cells
 	private Cell[][] cells;
+	
+	int[][] test = {{2,3},{3,4},{4,5}};
+	
 
 	/** Initialize UI */
 	public BoardView(ActionListener listener, int rows, int columns) {
@@ -28,13 +31,33 @@ public class BoardView extends JPanel {
 		this.setPreferredSize(new Dimension(700,700));
         cells = new Cell[rows][columns];
         initCells(listener, rows, columns);
-
 		// Set line borders on the cells panel and the status label
 		this.setBorder(new LineBorder(Color.black, 1));
+//		drawMovable(test);
+//		Unit hero = new Hero(3,4);
+//		updateBoard(hero, test);
 	}
 	
-	public Cell[][] getCells(){
+	public Cell[][] getCells() {
 		return cells;
+	}
+	
+	public void drawMovable(int[][] area) {
+		for(int i=0; i<area.length; i++){
+			cells[area[i][0]][area[i][1]].setUnit(new MovableGround(area[i][0], area[i][1]));
+			cells[area[i][0]][area[i][1]].repaint();
+		}
+	}
+	
+	public void updateBoard(Unit unit, int[][] area){
+		cells[unit.getX()][unit.getY()].setUnit(unit);
+		cells[unit.getX()][unit.getY()].repaint();
+		for(int i=0; i<area.length; i++){
+			if(area[i][0] != unit.getX() && area[i][1] != unit.getY()){
+				cells[area[i][0]][area[i][1]].setUnit(new Ground(area[i][0], area[i][1]));
+				cells[area[i][0]][area[i][1]].repaint();
+			}
+		}
 	}
 
     private void initCells(ActionListener listener, int rows, int columns) {
@@ -101,10 +124,16 @@ public class BoardView extends JPanel {
 			ImageIcon icon = unit.icon;
 			g.drawImage(icon.getImage(),0,0,getSize().width,getSize().height,this);
 		}
+		
+		public Unit getUnit(){
+            return this.unit;
+        }
+		
+		public void setUnit(Unit unit){
+			this.unit = unit;
+		}
                 
-                public Unit getUnit(){
-                    return this.unit;
-                }
+                
 
 	}
 }

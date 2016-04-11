@@ -14,6 +14,7 @@ public abstract class Unit {
 	private int[] pos = new int[2];
 	public ImageIcon icon;
 	private int[] initPos = new int[2];
+	
     public Unit(int x, int y) {
     	this.initPos[0] = this.pos[0] = x;
     	this.initPos[1] = this.pos[1]= y;
