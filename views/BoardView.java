@@ -30,11 +30,11 @@ public class BoardView extends JPanel {
 		super(new GridLayout(rows, columns, 0, 0));
 		this.setPreferredSize(new Dimension(700,700));
         cells = new Cell[rows][columns];
-        initCells(listener, rows, columns);
+ //       initCells(listener, rows, columns);
 		// Set line borders on the cells panel and the status label
 		this.setBorder(new LineBorder(Color.black, 1));
-		drawMovable(test);
-		Unit hero = new Hero(3,4);
+//		drawMovable(test);
+//		Unit hero = new Hero(3,4);
 //		updateBoard(hero, test);
 	}
 	
@@ -60,43 +60,49 @@ public class BoardView extends JPanel {
 		}
 	}
 
-    private void initCells(ActionListener listener, int rows, int columns) {
-        
-        for (int y = 0; y < columns; y++){
-            for (int x = 0; x < rows; x++) {
+	public void initCells(ActionListener listener, Unit cell) {
+		if(cells[cell.getY()][cell.getX()] == null)
+		this.add(cells[cell.getY()][cell.getX()] = new Cell(cell.getY(), cell.getX(), cell, listener));
+		else
+		{
+		cells[cell.getY()][cell.getX()].setUnit(cell);
+		}
+//		        for (int y = 0; y < columns; y++){
+//		            for (int x = 0; x < rows; x++) {
+		//
+//		                if ((x == 0 && y == 0) || (x == 0 && y == columns - 1)
+//		                        || (x == columns - 1 && y == 0)) { // set Guardian start point
+//		                    if (x == 0 && y == 0) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new Behemoth(x, y), listener));
+//		                    } else if (x == 0 && y == columns - 1) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new Hunter(x, y), listener));
+//		                    } else if (x == columns - 1 && y == 0) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new Golem(x, y), listener));
+//		                    }
+//		                } else if ((x == 0 && y == 0) || (x == 0 && y == 1)
+//		                        || (x == 1 && y == 0)) { // set the gate color
+//		                    this.add(cells[y][x] = new Cell(y, x, new Gate(x, y), listener));
+//		                } else if ((x == rows - 1 && y == columns - 1)
+//		                        || (x == rows - 1 && y == columns - 2)
+//		                        || (x == rows - 2 && y == columns - 1)
+//		                        || (x == rows - 2 && y == columns - 2)) { // set Explorer start point
+//		                    if (x == rows - 1 && y == columns - 1) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new Hero(x, y), listener));
+//		                    } else if (x == rows - 1 && y == columns - 2) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new TrapMaster(x, y), listener));
+//		                    } else if (x == rows - 2 && y == columns - 1) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new Tactician(x, y), listener));
+//		                    } else if (x == rows - 2 && y == columns - 2) {
+//		                        this.add(cells[y][x] = new Cell(y, x, new Scout(x, y), listener));
+//		                    }
+//		                } else {
+//		                    this.add(cells[y][x] = new Cell(y, x, new Ground(x, y), listener));
+//		                }
+//		            }
+//		        }
+		}
 
-                if ((x == 0 && y == 0) || (x == 0 && y == columns - 1)
-                        || (x == columns - 1 && y == 0)) { // set Guardian start point
-                    if (x == 0 && y == 0) {
-                        this.add(cells[y][x] = new Cell(y, x, new Behemoth(x, y), listener));
-                    } else if (x == 0 && y == columns - 1) {
-                        this.add(cells[y][x] = new Cell(y, x, new Hunter(x, y), listener));
-                    } else if (x == columns - 1 && y == 0) {
-                        this.add(cells[y][x] = new Cell(y, x, new Golem(x, y), listener));
-                    }
-                } else if ((x == 0 && y == 0) || (x == 0 && y == 1)
-                        || (x == 1 && y == 0)) { // set the gate color
-                    this.add(cells[y][x] = new Cell(y, x, new Gate(x, y), listener));
-                } else if ((x == rows - 1 && y == columns - 1)
-                        || (x == rows - 1 && y == columns - 2)
-                        || (x == rows - 2 && y == columns - 1)
-                        || (x == rows - 2 && y == columns - 2)) { // set Explorer start point
-                    if (x == rows - 1 && y == columns - 1) {
-                        this.add(cells[y][x] = new Cell(y, x, new Hero(x, y), listener));
-                    } else if (x == rows - 1 && y == columns - 2) {
-                        this.add(cells[y][x] = new Cell(y, x, new TrapMaster(x, y), listener));
-                    } else if (x == rows - 2 && y == columns - 1) {
-                        this.add(cells[y][x] = new Cell(y, x, new Tactician(x, y), listener));
-                    } else if (x == rows - 2 && y == columns - 2) {
-                        this.add(cells[y][x] = new Cell(y, x, new Scout(x, y), listener));
-                    }
-                } else {
-                    this.add(cells[y][x] = new Cell(y, x, new Ground(x, y), listener));
-                }
-            }
-        }
-    }
-	
+
 
 	// An inner class for a cell
 	public class Cell extends JButton {
