@@ -10,7 +10,7 @@ package controllers;
 import javax.swing.JOptionPane;
 
 import models.*;
-import models.Character;
+import models.Actor;
 import models.Explorer.Hero;
 import models.Explorer.Scout;
 import models.Explorer.Tactician;
@@ -46,7 +46,7 @@ public class UnitController {
     		
     	}
 
-    public void move(Character unit,Unit target)
+    public void move(Actor unit,Unit target)
     {
     	if(target.getClass().getPackage().equals("models.Item"))
     	{
@@ -57,7 +57,7 @@ public class UnitController {
     	}
     }
     
-    public int[][] movable(Character unit){
+    public int[][] movable(Actor unit){
         int rollCount = gameController.rollDice();//getCurrentPlayer().getRemainingMoves();
         
         System.out.println(rollCount);

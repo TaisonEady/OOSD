@@ -4,19 +4,19 @@ import java.util.*;
 
 public class Game {
     
-    private HashMap<String, Player> players;
+    private Map<String, Player> players;
     
 
     public Game(){
-
+        this.players = new HashMap<>();
     }
     
-    public boolean addPlayer(String playerTeam, Player newPlayer) throws Exception {
+    public Player addPlayer(String playerTeam, Player newPlayer) throws Exception {
         
         Player existingPlayer = players.put(playerTeam, newPlayer);
         
         if(existingPlayer == null){
-            return true;
+            return newPlayer;
         }else{
             throw new Exception("Player already exists.");
         }

@@ -11,7 +11,6 @@ import views.BoardView.Cell;
 
 public class BoardController {
 
-
     BoardController(GameController gameController) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

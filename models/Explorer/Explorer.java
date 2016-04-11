@@ -1,8 +1,8 @@
 package models.Explorer;
 
-import models.Character;
+import models.Actor;
 
-public abstract class Explorer extends Character
+public abstract class Explorer extends Actor
 {
 
 	public Explorer(int x, int y)

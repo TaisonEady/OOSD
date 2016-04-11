@@ -8,9 +8,9 @@
 
 package models.Guardians;
 
-import models.Character;
+import models.Actor;
 
-public abstract class Guardian extends Character {
+public abstract class Guardian extends Actor {
 
 	public Guardian(int x, int y)
 	{

@@ -27,8 +27,9 @@ public class GameController {
     //constants
     private static final int ROWS = 12;
     private static final int COLUMNS = 12;
-    private static enum State {DICE_ROLL, ACTION, CHECK_WIN} 
-    private State gameState;
+    private static DiceUtility dice;
+    private static enum State {DICE_ROLL, ACTION, CHECK_WIN}
+
     //models
     private Game game;
     //private Board board;
@@ -49,19 +50,20 @@ public class GameController {
     private static boolean initGuardian;
     private static boolean initBoard;
     
-    
+    //State variables
     private Player currentPlayer;
+    private Actor selectedActor;
+    private State gameState;
     
     public GameController(JFrame mainWindow){
         this.mainWindow = mainWindow;
-        
+        this.game = new Game();
         playerController = new PlayerController(this);
         //boardController = new BoardController(this);
         unitController = new UnitController(this);
         dice = new DiceUtility();
         gameState = State.DICE_ROLL;
         
-        //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
     }
     
     public void startGame(){
@@ -83,17 +85,15 @@ public class GameController {
 
     }
     
-    public void initGame(){
-    	Player guardian = getPlayerController().newPlayer("Guardian");
-        Player explorer = getPlayerController().newPlayer("Explorer");
-        initExplorerUnit(explorer);
-        initGuardianUnit(guardian);
+    public void initGame()throws Exception{
+        game.addPlayer("Guardian", playerController.newPlayer("Guardian"));
+        game.addPlayer("Explorer", playerController.newPlayer("Explorer"));
         
-        setCurrentPlayer(explorer);
+        //TODO Move these to the playerController class
+        initExplorerUnit(game.getPlayer("Explorer"));
+        initGuardianUnit(game.getPlayer("Guardian"));
         
-
-        //TODO create players and units
-        //TODO create board object
+        setCurrentPlayer(game.getPlayer("Explorer"));
     }
     
     public void showMainMenu(){
@@ -201,8 +201,14 @@ public class GameController {
         this.currentPlayer = currentPlayer;
     }
 
-    private static DiceUtility dice;
+    public Actor getSelectedActor() {
+        return selectedActor;
+    }
 
+    public void setSelectedActor(Actor selectedActor) {
+        this.selectedActor = selectedActor;
+    }
+    
     //getter for testing only
     public PlayerController getPlayerController() {
         return playerController;
@@ -215,27 +221,50 @@ public class GameController {
     private void cellClicked(Unit unit) {
         System.out.println(unit);
         
-
+        if(gameState == State.DICE_ROLL || gameState == State.CHECK_WIN){
+            return;
         }
+        
+//        if(currentPlayer.hasUnit(unit)){
+//            
+//            drawMovable((Actor)unit);
+//        }else(){
+//            
+//        }
     }
+    
+    private void drawMovable(Actor actor) {
+        int[][] cells = unitController.movable(actor);
+        
+        //boardView.drawMovable(cells);
+    }
+    
+    
 
     private void quitGame() {
-//        System.exit(0);
-        return;
+        System.exit(0);
+
     }
 
     class MenuActionListener implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
 
             String option = ((JButton) e.getSource()).getName();
 
-            if (option == "startGame") {
-                startGame();
-            } else if (option == "options") {
-                System.out.println("show the options menu here.");
-            } else if (option == "quit") {
-                quitGame();
+            switch (option) {
+                case "startGame":
+                    startGame();
+                    break;
+                case "options":
+                    System.out.println("show the options menu here.");
+                    break;
+                case "quit":
+                    quitGame();
+                    break;
+                default:
+                    break;
             }
 
             menu.setVisible(false);
@@ -245,6 +274,7 @@ public class GameController {
 
     class BoardActionListener implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
 
             Unit unit = ((Cell) e.getSource()).getUnit();

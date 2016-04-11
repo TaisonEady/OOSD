@@ -1,13 +1,13 @@
 package models;
 
-public abstract class Character extends Unit {
+public abstract class Actor extends Unit {
 	
 	private boolean alive;
 	
 	private int[] pos = new int[2];
 	private boolean onBoard;
 
-	public Character(int x, int y) {
+	public Actor(int x, int y) {
 		super(x, y);
 		this.alive = true;
 		// TODO Auto-generated constructor stub
