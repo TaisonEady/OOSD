@@ -17,6 +17,7 @@ public class PlayerController {
     
     GameController gameController;
 
+
     PlayerController(GameController gameController) {
         this.gameController = gameController;
     }
@@ -41,6 +42,7 @@ public class PlayerController {
 
         return newPlayer;
     }
+
     
     //This is kind of view code but it seemed too simple to maka a view class just for this method...
     private String getNameInput(String team){
@@ -56,4 +58,5 @@ public class PlayerController {
         }
         return nameInput;
     }
+    
 }

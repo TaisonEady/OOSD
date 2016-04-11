@@ -8,6 +8,8 @@
 
 package main;
 
+import controllers.GameController;
+
 public class TheChase {
 
 	/**
@@ -17,6 +19,8 @@ public class TheChase {
 	public static void main(String[] args) {
 
 		// test Model and View, you can block View/Model to test another
+//		GameController gameController = new GameController();
+//		gameController.startGame();
 
 		Test tester = new Test();
 		tester.testView();

@@ -7,8 +7,14 @@
  */
 package controllers;
 
+import javax.swing.JOptionPane;
+
 import models.*;
 import models.Character;
+import models.Explorer.Hero;
+import models.Explorer.Scout;
+import models.Explorer.Tactician;
+import models.Explorer.TrapMaster;
 
 public class UnitController {
     
@@ -17,6 +23,29 @@ public class UnitController {
     public UnitController(GameController gameController) {
         this.gameController = gameController;
     }
+    public void initExplorerUnit(Player player)
+    {
+    	
+    		//initExplorerUnit
+    		Hero hero = new Hero(0,0);
+    		Scout scout = new Scout(0,0);
+    		Tactician tactician = new Tactician(0,0);
+    		TrapMaster trapMaster = new TrapMaster(0,0);
+    		try
+			{
+				player.addUnit("hero", hero);
+				player.addUnit("scout", scout);
+				player.addUnit("tactician", tactician);
+				player.addUnit("trapMaster", trapMaster);
+
+			} catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+
     public void move(Character unit,Unit target)
     {
     	if(target.getClass().getPackage().equals("models.Item"))

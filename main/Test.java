@@ -30,6 +30,7 @@ public class Test {
         UnitController unitController = new UnitController(gameController);
 
         Character Hero = new Hero(9,9);
+        
 //        for(int i=0; i < unitController.movable(Hero).length; i++){
 //            for(int j=0; j<unitController.movable(Hero)[i].length; j++){
 //                System.out.println(unitController.movable(Hero)[i][j]);

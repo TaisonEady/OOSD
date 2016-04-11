@@ -8,18 +8,34 @@
 package controllers;
 
 import models.*;
+import models.Character;
+import models.Explorer.*;
+import models.Guardians.*;
+import models.Item.*;
+import views.BoardView.Cell;
+
+import javax.swing.JOptionPane;
+
 import main.*;
 
 public class GameController {
     private Game game;
     private final PlayerController playerController;
     private final UnitController unitController;
+    private static boolean initExplorer;
+    private static boolean initGuardian;
+    private static boolean initBoard;
+    
+	private int row = 12;
+	private int column = 12;
+	
+	private Cell[][] cells = new Cell[row][column];
     //private BoardController boardController;
     
     private Player currentPlayer;
     
     public void startGame(){
-    	
+
         //TODO get menu
         //TODO if menu true call init
         //TODO start turn(Player)
@@ -28,6 +44,12 @@ public class GameController {
     }
     
     public void init(){
+    	Player guardian = getPlayerController().newPlayer("Guardian");
+        Player explorer = getPlayerController().newPlayer("Explorer");
+        initExplorerUnit(explorer);
+        initGuardianUnit(guardian);
+        
+
         //TODO create players and units
         //TODO create board object
     }
@@ -43,7 +65,86 @@ public class GameController {
         //TODO end
     }
     
+    public void initExplorerUnit(Player player)
+    {
+    	if(initExplorer)
+    	{
+    		JOptionPane.showMessageDialog(null, 
+                    "Explorer already initialize");
+    	}
+    	else
+    	{
+    		//initExplorerUnit
+    		Hero hero = new Hero(0,0);
+    		Scout scout = new Scout(0,0);
+    		Tactician tactician = new Tactician(0,0);
+    		TrapMaster trapMaster = new TrapMaster(0,0);
+    		try
+			{
+				player.addUnit("hero", hero);
+				player.addUnit("scout", scout);
+				player.addUnit("tactician", tactician);
+				player.addUnit("trapMaster", trapMaster);
+				initExplorer = true;
+			} catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}
+    }
+    public void initGuardianUnit(Player player)
+    {
+    	if(initGuardian)
+    	{
+    		JOptionPane.showMessageDialog(null, 
+                    "Guardian already initialize");
+    	}
+    	else
+    	{
+    		//initGuardianUnit
+    		Behemoth behemoth = new Behemoth(0,0);
+    		Golem golem = new Golem(0,0);
+    		Hunter hunter = new Hunter(0,0);
 
+    		try
+			{
+				player.addUnit("behemoth", behemoth);
+				player.addUnit("golem", golem);
+				player.addUnit("hunter", hunter);
+				initGuardian = true;
+
+			} catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
+    public void initBoardUnit()
+    {
+    	if(initBoard)
+    	{
+    		JOptionPane.showMessageDialog(null, 
+                    "Board already initialize");
+    	}
+    	else
+    	{
+    		//initBoard
+ 
+    		try
+			{
+
+				initBoard = true;
+
+			} catch (Exception e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
     
     
 
