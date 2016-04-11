@@ -99,7 +99,7 @@ public class BoardView extends JPanel {
 		/** Paint the cell */
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			this.setBackground(Color.white); // background color
+			this.setBackground(null); // background color
 			ImageIcon icon = unit.icon;
 			g.drawImage(icon.getImage(),0,0,getSize().width,getSize().height,this);
 		}

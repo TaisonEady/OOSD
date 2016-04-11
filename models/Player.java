@@ -13,7 +13,7 @@ public class Player {
 
     private final String name;
     private final String team;
-    private Map<String, Unit> units;
+    public Map<String, Unit> units;
     private int currentRoll;
     private int remainingMoves;
     

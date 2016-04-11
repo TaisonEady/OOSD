@@ -7,14 +7,19 @@
  */
 package controllers;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.swing.*;
 import models.*;
 import models.Explorer.*;
 import models.Guardians.*;
 import models.Item.*;
 import views.BoardView.Cell;
+import views.HudView;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,6 +34,7 @@ public class GameController {
     private static final int COLUMNS = 12;
     private static enum State {DICE_ROLL, ACTION, CHECK_WIN} 
     private State gameState;
+    
     //models
     private Game game;
     //private Board board;
@@ -38,6 +44,7 @@ public class GameController {
     private MainMenuView menu;
     private BoardView boardView;
     private JFrame mainWindow;
+    private HudView hudView;
     
     //controllers
     private final PlayerController playerController;
@@ -48,6 +55,7 @@ public class GameController {
     private static boolean initExplorer;
     private static boolean initGuardian;
     private static boolean initBoard;
+    
     
     
     private Player currentPlayer;
@@ -79,9 +87,15 @@ public class GameController {
         mainWindow.getContentPane().add(boardView);
         boardView.setVisible(true);
         
+        hudView = new HudView();
+        mainWindow.getContentPane().add(hudView.hud, BorderLayout.SOUTH);
+        hudView.actionButton.addActionListener(new HUDActionListener());
+        
+        
         
 
     }
+    
     
     public void initGame(){
     	Player guardian = getPlayerController().newPlayer("Guardian");
@@ -90,10 +104,6 @@ public class GameController {
         initGuardianUnit(guardian);
         
         setCurrentPlayer(explorer);
-        
-
-        //TODO create players and units
-        //TODO create board object
     }
     
     public void showMainMenu(){
@@ -217,11 +227,34 @@ public class GameController {
         
 
         }
-    }
+    
 
     private void quitGame() {
 //        System.exit(0);
         return;
+    }
+    
+    private boolean checkWin(){
+    	//TODO Needs to be checked after updating to Taison's new code, at the moment it fails searching for a player
+    	Map unitMap = null;
+		try {
+			unitMap = game.getPlayer("explorer").units;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		Iterator it = unitMap.entrySet().iterator();
+		   while (it.hasNext()) {
+		        Map.Entry pair = (Map.Entry)it.next();
+		        Unit unit = (Unit) pair.getValue();
+		        if (unit.pos[0] == 0 && unit.pos[1] == 0 || unit.pos[0] == 0 && unit.pos[1] == 1 || unit.pos[0] == 1 && unit.pos[1] == 0){
+		        	return(true);
+		        }
+		        it.remove(); // avoids a ConcurrentModificationException
+		    }
+    	
+    	
+    	return(false);
     }
 
     class MenuActionListener implements ActionListener {
@@ -253,6 +286,50 @@ public class GameController {
 
         }
 
+    }
+    
+    //Determines what actions should be completed when HUD button is pressed and instigates them
+    class HUDActionListener implements ActionListener {
+    	public void actionPerformed(ActionEvent e){
+    		//Move to action state
+    		if (gameState == State.DICE_ROLL){
+    			hudView.diceAmount.setText(String.valueOf(rollDice()));
+    			gameState = State.ACTION;
+    			hudView.setUnitState();
+    		} 
+    		//Move to check win state, restart if nobody won
+    		else if (gameState == State.ACTION){
+    			//Check if the player has won
+    			gameState = State.CHECK_WIN;
+    			boolean didWin = checkWin();
+    			if (!didWin){
+    				hudView.setDiceState();
+    				//Swap to the next player, this could be changed later to facilitate more than 2 players
+    				hudView.swapPlayer();
+    				if (getCurrentPlayer().getTeam() == "Explorer"){
+    					try {
+							setCurrentPlayer(game.getPlayer("guardian"));
+						} catch (Exception noPlayer) {
+							System.out.println("Guardian player not found");
+							noPlayer.printStackTrace();
+						}    					
+    				}
+    				
+    				else {
+    					try {
+							setCurrentPlayer(game.getPlayer("explorer"));
+						} catch (Exception noPlayer) {
+							System.out.println("Explorer player not found");
+							noPlayer.printStackTrace();
+						}    	
+    				}
+    				gameState = State.DICE_ROLL;
+    			}
+    			else {
+    				hudView.setWinState();
+    			}
+    		}
+    	}
     }
 
 }
