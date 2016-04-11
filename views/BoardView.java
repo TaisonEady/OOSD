@@ -126,13 +126,9 @@ public class BoardView extends JPanel {
 		/** Paint the cell */
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-<<<<<<< HEAD
 			this.setBackground(null); // background color
 			ImageIcon icon = unit.icon;
-=======
-			this.setBackground(Color.white); // background color
-			ImageIcon icon = unit.getIcon();
->>>>>>> branch 'master' of https://github.com/TaisonEady/OOSD.git
+
 			g.drawImage(icon.getImage(),0,0,getSize().width,getSize().height,this);
 		}
 		
