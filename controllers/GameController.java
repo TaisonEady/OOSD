@@ -27,7 +27,8 @@ public class GameController {
     //constants
     private static final int ROWS = 12;
     private static final int COLUMNS = 12;
-    
+    private static enum State {DICE_ROLL, ACTION, CHECK_WIN} 
+    private State gameState;
     //models
     private Game game;
     //private Board board;
@@ -58,6 +59,7 @@ public class GameController {
         //boardController = new BoardController(this);
         unitController = new UnitController(this);
         dice = new DiceUtility();
+        gameState = State.DICE_ROLL;
         
         //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
     }
@@ -76,9 +78,9 @@ public class GameController {
         boardView = new BoardView(new BoardActionListener(),ROWS, COLUMNS);
         mainWindow.getContentPane().add(boardView);
         boardView.setVisible(true);
-        //TODO start turn(Player)
-        //TODO start turn(Player 2)
-        //TODO FUTURE loop turns
+        
+        
+
     }
     
     public void initGame(){
@@ -86,6 +88,8 @@ public class GameController {
         Player explorer = getPlayerController().newPlayer("Explorer");
         initExplorerUnit(explorer);
         initGuardianUnit(guardian);
+        
+        setCurrentPlayer(explorer);
         
 
         //TODO create players and units
@@ -172,29 +176,22 @@ public class GameController {
     }
     public void initBoardUnit()
     {
-    	if(initBoard)
-    	{
-    		JOptionPane.showMessageDialog(null, 
+    	   if (initBoard) {
+            JOptionPane.showMessageDialog(null,
                     "Board already initialize");
-    	}
-    	else
-    	{
-    		//initBoard
- 
-    		try
-			{
+        } else {
+            //initBoard
 
-				initBoard = true;
+            try {
 
-			} catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+                initBoard = true;
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
-    
-    
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -203,56 +200,59 @@ public class GameController {
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
-    
+
     private static DiceUtility dice;
 
     //getter for testing only
     public PlayerController getPlayerController() {
         return playerController;
     }
-    
-    public int rollDice(){
+
+    public int rollDice() {
         return dice.roll();
     }
-    
+
     private void cellClicked(Unit unit) {
         System.out.println(unit);
+        
+
+        }
     }
-    
+
     private void quitGame() {
 //        System.exit(0);
-          return;
+        return;
     }
-    
-    class MenuActionListener implements ActionListener{
-        
+
+    class MenuActionListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
-            
-            String option = ((JButton)e.getSource()).getName();
-            
-            if(option == "startGame"){
+
+            String option = ((JButton) e.getSource()).getName();
+
+            if (option == "startGame") {
                 startGame();
-            }else if(option == "options"){
+            } else if (option == "options") {
                 System.out.println("show the options menu here.");
-            }else if(option == "quit"){
+            } else if (option == "quit") {
                 quitGame();
             }
-            
+
             menu.setVisible(false);
         }
 
     }
-    
-    class BoardActionListener implements ActionListener{
-        
+
+    class BoardActionListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
-            
-            Unit unit  = ((Cell)e.getSource()).getUnit();
-            
+
+            Unit unit = ((Cell) e.getSource()).getUnit();
+
             cellClicked(unit);
 
         }
 
     }
-    
+
 }

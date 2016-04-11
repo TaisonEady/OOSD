@@ -41,9 +41,13 @@ public class Player {
         }
     }
     
-    public Unit getUnit(){
-          
-        return null;
+    public Unit getUnit(String unitType)throws Exception{
+        Unit unit = units.get(unitType);
+        if(unit == null){
+            throw new Exception("No such unit type.");
+        }else{
+            return unit;
+        }
     }
 
     public int getCurrentRoll() {

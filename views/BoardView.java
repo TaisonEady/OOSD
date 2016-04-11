@@ -18,23 +18,18 @@ import models.Item.*;
 
 public class BoardView extends JPanel {
 	
-	int rows = 12;
-	int columns = 12;
-
 	// Create and initialize cells
-	private Cell[][] cells = new Cell[rows][columns];
-
-	// Create and initialize a status label
-	private JLabel jlblStatus = new JLabel("Start Game");
+	private Cell[][] cells;
 
 	/** Initialize UI */
 	public BoardView(ActionListener listener, int rows, int columns) {
 		
 		super(new GridLayout(rows, columns, 0, 0));
-                this.rows = rows;
-                this.columns = columns;
                 
-                initCells(listener);
+                cells = new Cell[rows][columns];
+
+                
+                initCells(listener, rows, columns);
 
 		// Set line borders on the cells panel and the status label
 		this.setBorder(new LineBorder(Color.black, 1));
@@ -44,34 +39,34 @@ public class BoardView extends JPanel {
 		return cells;
 	}
 
-    private void initCells(ActionListener listener) {
+    private void initCells(ActionListener listener, int rows, int columns) {
         
-        for (int y = 0; y < this.columns; y++){
-            for (int x = 0; x < this.rows; x++) {
+        for (int y = 0; y < columns; y++){
+            for (int x = 0; x < rows; x++) {
 
-                if ((x == 0 && y == 0) || (x == 0 && y == this.columns - 1)
-                        || (x == this.columns - 1 && y == 0)) { // set Guardian start point
+                if ((x == 0 && y == 0) || (x == 0 && y == columns - 1)
+                        || (x == columns - 1 && y == 0)) { // set Guardian start point
                     if (x == 0 && y == 0) {
                         this.add(cells[y][x] = new Cell(y, x, new Behemoth(x, y), listener));
-                    } else if (x == 0 && y == this.columns - 1) {
+                    } else if (x == 0 && y == columns - 1) {
                         this.add(cells[y][x] = new Cell(y, x, new Hunter(x, y), listener));
-                    } else if (x == this.columns - 1 && y == 0) {
+                    } else if (x == columns - 1 && y == 0) {
                         this.add(cells[y][x] = new Cell(y, x, new Golem(x, y), listener));
                     }
                 } else if ((x == 0 && y == 0) || (x == 0 && y == 1)
                         || (x == 1 && y == 0)) { // set the gate color
                     this.add(cells[y][x] = new Cell(y, x, new Gate(x, y), listener));
-                } else if ((x == this.rows - 1 && y == this.columns - 1)
-                        || (x == this.rows - 1 && y == this.columns - 2)
-                        || (x == this.rows - 2 && y == this.columns - 1)
-                        || (x == this.rows - 2 && y == this.columns - 2)) { // set Explorer start point
-                    if (x == this.rows - 1 && y == this.columns - 1) {
+                } else if ((x == rows - 1 && y == columns - 1)
+                        || (x == rows - 1 && y == columns - 2)
+                        || (x == rows - 2 && y == columns - 1)
+                        || (x == rows - 2 && y == columns - 2)) { // set Explorer start point
+                    if (x == rows - 1 && y == columns - 1) {
                         this.add(cells[y][x] = new Cell(y, x, new Hero(x, y), listener));
-                    } else if (x == this.rows - 1 && y == this.columns - 2) {
+                    } else if (x == rows - 1 && y == columns - 2) {
                         this.add(cells[y][x] = new Cell(y, x, new TrapMaster(x, y), listener));
-                    } else if (x == this.rows - 2 && y == this.columns - 1) {
+                    } else if (x == rows - 2 && y == columns - 1) {
                         this.add(cells[y][x] = new Cell(y, x, new Tactician(x, y), listener));
-                    } else if (x == this.rows - 2 && y == this.columns - 2) {
+                    } else if (x == rows - 2 && y == columns - 2) {
                         this.add(cells[y][x] = new Cell(y, x, new Scout(x, y), listener));
                     }
                 } else {
