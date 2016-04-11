@@ -11,9 +11,15 @@ package models;
 import javax.swing.ImageIcon;
 
 public abstract class Unit {
+<<<<<<< HEAD
 	public int[] pos = new int[2];
 	public ImageIcon icon;
+=======
+	private int[] pos = new int[2];
+	private ImageIcon icon;
+>>>>>>> branch 'master' of https://github.com/TaisonEady/OOSD.git
 	private int[] initPos = new int[2];
+	
     public Unit(int x, int y) {
     	this.initPos[0] = this.pos[0] = x;
     	this.initPos[1] = this.pos[1]= y;
@@ -37,5 +43,8 @@ public abstract class Unit {
     }
     public int[] getStartPos(){
     	return initPos ;
+    }
+    public ImageIcon getIcon(){
+    	return icon;
     }
 }

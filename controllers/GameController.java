@@ -108,73 +108,59 @@ public class GameController {
     
     public void showMainMenu(){
 
-        MenuActionListener listener = new MenuActionListener();
-        menu = new MainMenuView(listener);
-        mainWindow.getContentPane().add(menu);
+	public void initExplorerUnit(Player player, BoardActionListener boardListener)
+	{
+		if (initExplorer)
+		{
+			JOptionPane.showMessageDialog(null, "Explorer already initialize");
+		} else
+		{
+			// initExplorerUnit
+			Hero hero = new Hero(11, 11);
+			Scout scout = new Scout(10, 10);
+			Tactician tactician = new Tactician(10, 11);
+			TrapMaster trapMaster = new TrapMaster(11, 10);
 
-        menu.setVisible(true);
-        
-    }
-    
-    public void turn(Player player){
-    	//hudView.updateHUD(0, "Please roll dice", false);
-    	player.setCurrentRoll(rollDice());
-    	//hudView.updateHUD(player.getCurrentRoll(), "Please select unit", false);
-             //TODO select unit --> waiting -->  if yes moveable (view), else no nothing
-        //hudView.updateHUD(player.getCurrentRoll(), "Where would you like to move?", true);
-        //TODO select destination --> waiting --> if yes move, else do nothing
-        //TODO ASSIGNMENT 2 - attack phase + ability phase
-        //TODO end
-    }
-    
-    public void initExplorerUnit(Player player)
-    {
-    	if(initExplorer)
-    	{
-    		JOptionPane.showMessageDialog(null, 
-                    "Explorer already initialize");
-    	}
-    	else
-    	{
-    		//initExplorerUnit
-    		Hero hero = new Hero(0,0);
-    		Scout scout = new Scout(0,0);
-    		Tactician tactician = new Tactician(0,0);
-    		TrapMaster trapMaster = new TrapMaster(0,0);
-    		try
+			try
 			{
 				player.addUnit("hero", hero);
+				boardView.initCells(boardListener, hero);
 				player.addUnit("scout", scout);
+				boardView.initCells(boardListener, scout);
 				player.addUnit("tactician", tactician);
+				boardView.initCells(boardListener, tactician);
 				player.addUnit("trapMaster", trapMaster);
+				boardView.initCells(boardListener, trapMaster);
 				initExplorer = true;
 			} catch (Exception e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		
-    	}
-    }
-    public void initGuardianUnit(Player player)
-    {
-    	if(initGuardian)
-    	{
-    		JOptionPane.showMessageDialog(null, 
-                    "Guardian already initialize");
-    	}
-    	else
-    	{
-    		//initGuardianUnit
-    		Behemoth behemoth = new Behemoth(0,0);
-    		Golem golem = new Golem(0,0);
-    		Hunter hunter = new Hunter(0,0);
 
-    		try
+		}
+	}
+
+	public void initGuardianUnit(Player player, BoardActionListener boardListener)
+	{
+		if (initGuardian)
+		{
+			JOptionPane.showMessageDialog(null, "Guardian already initialize");
+		} else
+		{
+			// initGuardianUnit
+			Behemoth behemoth = new Behemoth(0, 0);
+			Golem golem = new Golem(11, 0);
+			Hunter hunter = new Hunter(0, 11);
+
+			try
 			{
 				player.addUnit("behemoth", behemoth);
+				boardView.initCells(boardListener, behemoth);
 				player.addUnit("golem", golem);
+				boardView.initCells(boardListener, golem);
 				player.addUnit("hunter", hunter);
+				boardView.initCells(boardListener, hunter);
 				initGuardian = true;
 
 			} catch (Exception e)
@@ -182,57 +168,97 @@ public class GameController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
-    }
-    public void initBoardUnit()
-    {
-    	   if (initBoard) {
-            JOptionPane.showMessageDialog(null,
-                    "Board already initialize");
-        } else {
-            //initBoard
+		}
+	}
 
-            try {
+	public void initBoardUnit(BoardActionListener boardListener)
+	{
+		{
+			if (initBoard)
+			{
+				JOptionPane.showMessageDialog(null, "Board already initialize");
+			} else
+			{
+				// initBoard
 
-                initBoard = true;
+				boardView = new BoardView(boardListener, ROWS, COLUMNS);
+				for (int y = 0; y < COLUMNS; y++)
+				{
+					for (int x = 0; x < ROWS; x++)
+					{
+						BoardItem cell;
+						if ((x == 0 && y == COLUMNS - 1) || (x == COLUMNS - 1 && y == 0))
+						{ // set Guardian start point
+							cell = new GuardianStartPoint(x, y);
+						} else if ((x == ROWS - 1 && y == COLUMNS - 1) || (x == ROWS - 1 && y == COLUMNS - 2)
+						        || (x == ROWS - 2 && y == COLUMNS - 1) || (x == ROWS - 2 && y == COLUMNS - 2))
+						{ // set Explorer start point
 
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
+							cell = new ExplorerStartPoint(x, y);
+						} else if ((x == 0 && y == 0) || (x == 0 && y == 1) || (x == 1 && y == 0))
+						{ // set the gate color
+							cell = new Gate(x, y);
+						}
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
+						else
+						{
+							cell = new Ground(x, y);
+						}
 
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
+						boardView.initCells(boardListener, cell);
+					}
+				}
 
-    private static DiceUtility dice;
+				try
+				{
 
-    //getter for testing only
-    public PlayerController getPlayerController() {
-        return playerController;
-    }
+					initBoard = true;
 
-    public int rollDice() {
-        return dice.roll();
-    }
+				} catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
-    private void cellClicked(Unit unit) {
-        System.out.println(unit);
-        
+		}
+	}
+
+	public Player getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer)
+	{
+		this.currentPlayer = currentPlayer;
+	}
+
+	private static DiceUtility dice;
+
+	// getter for testing only
+	public PlayerController getPlayerController()
+	{
+		return playerController;
+	}
+
+	public int rollDice()
+	{
+		return dice.roll();
+	}
+
+	private void cellClicked(Unit unit)
+	{
+		System.out.println(unit);
 
         }
     
 
-    private void quitGame() {
-//        System.exit(0);
-        return;
-    }
+	private void quitGame()
+	{
+		// System.exit(0);
+		return;
+	}
     
     private boolean checkWin(){
     	//TODO Needs to be checked after updating to Taison's new code, at the moment it fails searching for a player
@@ -257,36 +283,43 @@ public class GameController {
     	return(false);
     }
 
-    class MenuActionListener implements ActionListener {
+	class MenuActionListener implements ActionListener
+	{
 
-        public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e)
+		{
 
-            String option = ((JButton) e.getSource()).getName();
+			String option = ((JButton) e.getSource()).getName();
 
-            if (option == "startGame") {
-                startGame();
-            } else if (option == "options") {
-                System.out.println("show the options menu here.");
-            } else if (option == "quit") {
-                quitGame();
-            }
+			if (option == "startGame")
+			{
+				startGame();
+			} else if (option == "options")
+			{
+				System.out.println("show the options menu here.");
+			} else if (option == "quit")
+			{
+				quitGame();
+			}
 
-            menu.setVisible(false);
-        }
+			menu.setVisible(false);
+		}
 
-    }
+	}
 
-    class BoardActionListener implements ActionListener {
+	class BoardActionListener implements ActionListener
+	{
 
-        public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e)
+		{
 
-            Unit unit = ((Cell) e.getSource()).getUnit();
+			Unit unit = ((Cell) e.getSource()).getUnit();
 
-            cellClicked(unit);
+			cellClicked(unit);
 
-        }
+		}
 
-    }
+	}
     
     //Determines what actions should be completed when HUD button is pressed and instigates them
     class HUDActionListener implements ActionListener {
