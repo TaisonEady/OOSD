@@ -33,8 +33,8 @@ public class BoardView extends JPanel {
         initCells(listener, rows, columns);
 		// Set line borders on the cells panel and the status label
 		this.setBorder(new LineBorder(Color.black, 1));
-//		drawMovable(test);
-//		Unit hero = new Hero(3,4);
+		drawMovable(test);
+		Unit hero = new Hero(3,4);
 //		updateBoard(hero, test);
 	}
 	
