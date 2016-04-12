@@ -18,6 +18,7 @@ public abstract class Explorer extends Actor
 		
 	}
 
+        @Override
 	public boolean moveable(int x, int y)
 	{
 		return true;

@@ -5,7 +5,7 @@ import java.util.*;
 public class Game {
     
     private Map<String, Player> players;
-    
+    private Board board;   
 
     public Game(){
         this.players = new HashMap<>();
@@ -31,6 +31,14 @@ public class Game {
         }else{
             return player;
         }
+    }
+    
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     

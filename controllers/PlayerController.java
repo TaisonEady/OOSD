@@ -59,4 +59,9 @@ public class PlayerController {
         return nameInput;
     }
     
+    public void newDiceRoll(Player player, int diceAmount){
+        player.setCurrentRoll(diceAmount);
+        player.resetRemainingMoves();
+    }
+    
 }

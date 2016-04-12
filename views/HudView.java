@@ -10,9 +10,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Random;
 
-public class HudView {
+public class HudView extends JPanel{
 	
-	public JPanel hud;
 	public JLabel instruction;
 	public JLabel diceAmount;
 	public JButton actionButton;
@@ -21,13 +20,12 @@ public class HudView {
 	public JLabel currentPlayer;
 	public Boolean isExplorer;
 
-	public HudView() {
+	public HudView(ActionListener hudListener){
 		// TODO Auto-generated constructor stub
 		
-		hud = new JPanel();
 		Color bluegrey = new Color(179, 204, 204);
-		hud.setBackground(bluegrey);
-		hud.setPreferredSize(new Dimension(800, 50));
+		this.setBackground(bluegrey);
+		this.setPreferredSize(new Dimension(800, 50));
 		
 		isExplorer = true;
 		
@@ -38,32 +36,27 @@ public class HudView {
 		currentPlayer.setForeground(Color.blue);
 		actionButton = new JButton("Roll dice");
 		actionButton.setPreferredSize(new Dimension(140, 40));
+                actionButton.addActionListener(hudListener);
 		
-		//TODO Remove action listener code, GameController will handle the listeners
-		actionButton.addActionListener(new ActionListener() { 
-			  public void actionPerformed(ActionEvent e) { 
-			    setUnitState();
-			  } 
-			} );
 		
-		diceIcon = new ImageIcon("bin/images/dice.png");
-		endTurnIcon = new ImageIcon("bin/images/endTurn.png");
+		//diceIcon = new ImageIcon("bin/images/dice.png");
+		//endTurnIcon = new ImageIcon("bin/images/endTurn.png");
+                diceIcon = new ImageIcon("/home/teady/NetBeansProjects/OOSD/gitRepo/images/dice.png");
+		endTurnIcon = new ImageIcon("/home/teady/NetBeansProjects/OOSD/gitRepo/images/endTurn.png");
 		
 	    actionButton.setIcon(diceIcon);
 	    
 	    actionButton.setFocusPainted(false);
-	    
-	    
-		
+
 		//Layout elements across HUD bar
-	    hud.add(Box.createVerticalStrut(40));
-		hud.add(instruction);
-		hud.add(Box.createHorizontalStrut(60));
-		hud.add(actionButton);
-		hud.add(Box.createHorizontalStrut(20));
-		hud.add(diceAmount);
-		hud.add(Box.createHorizontalStrut(60));
-		hud.add(currentPlayer);
+                this.add(Box.createVerticalStrut(40));
+		this.add(instruction);
+		this.add(Box.createHorizontalStrut(60));
+		this.add(actionButton);
+		this.add(Box.createHorizontalStrut(20));
+		this.add(diceAmount);
+		this.add(Box.createHorizontalStrut(60));
+		this.add(currentPlayer);
 	}
 	
 	//Functions to handle changes to the HUD based on state changes
@@ -86,47 +79,15 @@ public class HudView {
 	}
 	
 	public void setDiceState(){
-		//TODO Remove swapPlayer and setDiceRoll, these should be called from GameController
-		swapPlayer();
-		setDiceRoll(0);
-		
 		instruction.setText("Please roll dice");
 		actionButton.setText("Roll dice");
 		actionButton.setIcon(diceIcon);
-		
-		//TODO Remove action listener code, GameController will handle the listeners
-				for( ActionListener al : actionButton.getActionListeners() ) {
-			        actionButton.removeActionListener( al );
-			    }
-				actionButton.addActionListener(new ActionListener() { 
-					  public void actionPerformed(ActionEvent e) { 
-					    setUnitState();
-					  } 
-					} );
 	}
 	
 	public void setUnitState(){
 		instruction.setText("Please select unit");
 		actionButton.setText("End turn");
-		actionButton.setIcon(endTurnIcon);
-		
-		//TODO Remove action listener code, GameController will handle the listeners
-		for( ActionListener al : actionButton.getActionListeners() ) {
-	        actionButton.removeActionListener( al );
-	    }
-		actionButton.addActionListener(new ActionListener() { 
-			  public void actionPerformed(ActionEvent e) { 
-			    setDiceState();
-			  } 
-			} );
-		
-		
-		//TODO Remove setDiceRoll, this should be called from GameController
-		
-		Random rand = new Random();
-
-		setDiceRoll(rand.nextInt(6) + 1);
-		
+		actionButton.setIcon(endTurnIcon);	
 	}
 	
 	public void setMoveState(){
@@ -135,6 +96,10 @@ public class HudView {
 	
 	public void setAttackState(){
 		instruction.setText("Would you like to attack?");
+	}
+	
+	public void setWinState(){
+		instruction.setText(currentPlayer + " win!");
 	}
 	
 	
