@@ -3,8 +3,7 @@ package models;
 public abstract class Actor extends Unit {
 	
 	private boolean alive;
-	
-	private int[] pos = new int[2];
+
 	private boolean onBoard;
 
 	public Actor(int x, int y) {
@@ -35,7 +34,8 @@ public abstract class Actor extends Unit {
     public void setStatus(boolean alive) {
         this.alive = alive;
     }
-    
+    public abstract int getMoveableCount(int rollCount);
+
 
 
 }

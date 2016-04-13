@@ -17,6 +17,7 @@ public abstract class Guardian extends Actor {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
+    public abstract int getMoveableCount(int rollCount);
 
 	
 }

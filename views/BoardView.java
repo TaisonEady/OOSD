@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import models.BoardItem;
 import models.Unit;
 import models.Explorer.Hero;
 import models.Explorer.Scout;
@@ -40,33 +41,68 @@ public class BoardView extends JPanel {
     }
 
     public void drawMovable(int[][] area) {
-        for (int i = 0; i < area.length - 1; i++) {
+        for (int i = 0; i < area.length ; i++) {
+        	
             try {
+            	if(cells[area[i][0]][area[i][1]].getUnit() instanceof BoardItem)
+            	{
             	System.out.println(area[i][0]+"    -    "+area[i][1]);
             	
                 cells[area[i][0]][area[i][1]].setUnit(new MovableGround(area[i][0], area[i][1]));
                 cells[area[i][0]][area[i][1]].repaint();
+            	}
             } catch (Exception e) {
 
             }
-        }
+        	}
+        
+        System.out.println("movable end");
     }
 
     public void updateBoard(Unit unit, int[][] area) {
-        cells[unit.getX()][unit.getY()].setUnit(unit);
-        cells[unit.getX()][unit.getY()].repaint();
-        for (int i = 0; i < area.length - 1; i++) {
-            try {
-                if (cells[unit.getX()][unit.getY()].getX() == cells[area[i][0]][area[i][1]].getX() && cells[area[i][0]][area[i][1]].getY() == cells[unit.getX()][unit.getY()].getY()) {
-
-                } else {
+    	cells[unit.getX()][unit.getY()].setUnit(unit);
+    	cells[unit.getX()][unit.getY()].repaint();
+    	for (int i = 0; i < area.length - 1; i++) {
+    		if(unit.getX()==area[i][0]&&unit.getY() == area[i][1])
+    		{
+    		}
+    		else
+    		{
+    			try {
+                	if(cells[area[i][0]][area[i][1]].getUnit() instanceof BoardItem)
+                	{
+                	System.out.println(area[i][0]+"    -    "+area[i][1]);
+                	if ((area[i][0] == 0 && area[i][1] == 0) || (area[i][0] == 0 && area[i][1] == 1) || (area[i][0] == 1 && area[i][1] == 0)) { // set the gate color
+                		cells[area[i][0]][area[i][1]].setUnit(new Gate(area[i][0], area[i][1]));
+                        cells[area[i][0]][area[i][1]].repaint();
+                    }
+                	else
+                	{
                     cells[area[i][0]][area[i][1]].setUnit(new Ground(area[i][0], area[i][1]));
                     cells[area[i][0]][area[i][1]].repaint();
-                }
-            } catch (Exception e) {
+                	}
+                	}
+                } catch (Exception e) {
 
-            }
+                }
+            	}
+            
+    		
         }
+//        cells[unit.getX()][unit.getY()].setUnit(unit);
+//        cells[unit.getX()][unit.getY()].repaint();
+//        for (int i = 0; i < area.length - 1; i++) {
+//            try {
+//                if (cells[unit.getX()][unit.getY()].getX() == cells[area[i][0]][area[i][1]].getX() && cells[area[i][0]][area[i][1]].getY() == cells[unit.getX()][unit.getY()].getY()) {
+//
+//                } else {
+//                    cells[area[i][0]][area[i][1]].setUnit(new Ground(area[i][0], area[i][1]));
+//                    cells[area[i][0]][area[i][1]].repaint();
+//                }
+//            } catch (Exception e) {
+//
+//            }
+//        }
     }
 
     public void initCells(ActionListener listener, Unit cell) {
@@ -77,6 +113,10 @@ public class BoardView extends JPanel {
             cells[cell.getX()][cell.getY()].setUnit(cell);
         }
 
+    }
+    public void darwPos(Unit unit) {
+    	cells[unit.getX()][unit.getY()].setUnit(unit);
+        cells[unit.getX()][unit.getY()].repaint();
     }
 
     // An inner class for a cell

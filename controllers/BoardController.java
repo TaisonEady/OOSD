@@ -151,9 +151,16 @@ public class BoardController {
     void drawMovable(int[][] movePositions) {
         boardView.drawMovable(movePositions);
     }
+    void clearMovable(int[][] movePositions, Unit unit){
+    	boardView.updateBoard(unit, movePositions);
+    }
 
     void updateBoard(Unit selectedunit, int[][] movePositions) {
         boardView.updateBoard(selectedunit, movePositions);
+    }
+    void drawPos(Unit unit)
+    {
+    	boardView.darwPos(unit);
     }
 
     void setDiceRoll(int diceAmount) {

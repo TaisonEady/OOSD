@@ -17,12 +17,19 @@ public abstract class Explorer extends Actor
 		return false;
 		
 	}
+	@Override
+	public int getMoveableCount(int rollCount)
+	{
+		return (rollCount*2+1)*(rollCount*2+1);
+		
+	}
 
         @Override
 	public boolean moveable(int x, int y)
 	{
 		return true;
 	}
+
 
 //	public boolean move(int x, int y)
 //	{
