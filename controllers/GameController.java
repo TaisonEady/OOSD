@@ -61,7 +61,6 @@ public class GameController {
     private Actor selectedActor;
     private State gameState;
     
-    private static int[][] movePositions;
     private Unit selectedunit;
     private int countclick = 1;
 
