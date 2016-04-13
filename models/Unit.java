@@ -20,8 +20,8 @@ public abstract class Unit {
     	this.initPos[0] = this.pos[0] = x;
     	this.initPos[1] = this.pos[1]= y;
     	
-    	//icon = new ImageIcon("/bin/images/"+this.getClass().getSimpleName().toLowerCase()+".png");
-        icon = new ImageIcon("/home/teady/NetBeansProjects/OOSD/gitRepo/images/"+this.getClass().getSimpleName().toLowerCase()+".png");
+    	icon = new ImageIcon("bin/images/"+this.getClass().getSimpleName().toLowerCase()+".png");
+        //icon = new ImageIcon("/home/teady/NetBeansProjects/OOSD/gitRepo/images/"+this.getClass().getSimpleName().toLowerCase()+".png");
     	
     }
     public void setPos(int x, int y)
