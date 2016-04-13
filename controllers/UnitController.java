@@ -61,7 +61,7 @@ public class UnitController {
         
         System.out.println(rollCount);
         
-        int[][] movePositions = new int[169][2];
+        int[][] movePositions = new int[(rollCount*2+1)*(rollCount*2+1)][2];
             
             int max = 12;
             int count= 0;
@@ -72,11 +72,12 @@ public class UnitController {
                     {
                         for (int j = -rollCount; j < 1 + rollCount; j++)
                         {
-                            if(i+j !=0 && unit.moveable(i, j))
+                            if(Math.abs(i)+Math.abs(j) !=0 && unit.moveable(i, j))
                             {
                             	
                                 movePositions[count][0]= i + unit.getX();
                                 movePositions[count][1]= j + unit.getY();
+                                
                                 count++;
                             }
 

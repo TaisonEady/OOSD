@@ -42,6 +42,8 @@ public class BoardView extends JPanel {
     public void drawMovable(int[][] area) {
         for (int i = 0; i < area.length - 1; i++) {
             try {
+            	System.out.println(area[i][0]+"    -    "+area[i][1]);
+            	
                 cells[area[i][0]][area[i][1]].setUnit(new MovableGround(area[i][0], area[i][1]));
                 cells[area[i][0]][area[i][1]].repaint();
             } catch (Exception e) {
