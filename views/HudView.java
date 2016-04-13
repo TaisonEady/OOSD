@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import models.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,8 +100,8 @@ public class HudView extends JPanel{
 		instruction.setText("Would you like to attack?");
 	}
 	
-	public void setWinState(){
-		instruction.setText(currentPlayer + " win!");
+	public void setWinState(String team){
+		instruction.setText(team+ " win!");
 	}
 	
 	
