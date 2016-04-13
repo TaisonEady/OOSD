@@ -13,13 +13,14 @@ public class Player {
 
     private final String name;
     private final String team;
-    private HashMap<String, Unit> units;
+    public Map<String, Unit> units;
     private int currentRoll;
     private int remainingMoves;
     
     public Player(String name, String team) {
         this.name = name;
         this.team = team;
+        this.units = new HashMap<>();
     }
     
     public String getName(){
@@ -40,9 +41,13 @@ public class Player {
         }
     }
     
-    public Unit getUnit(){
-          
-        return null;
+    public Unit getUnit(String unitType)throws Exception{
+        Unit unit = units.get(unitType);
+        if(unit == null){
+            throw new Exception("No such unit type.");
+        }else{
+            return unit;
+        }
     }
 
     public int getCurrentRoll() {
@@ -63,6 +68,10 @@ public class Player {
     
     public void subtractRemainingMoves(int movesToSubtract) {
         this.remainingMoves -= movesToSubtract;
+    }
+
+    public boolean hasUnit(Unit unit) {
+        return units.containsValue(unit);
     }
           
 }

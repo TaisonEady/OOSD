@@ -5,7 +5,10 @@
  */
 package views;
 
+<<<<<<< HEAD
 import java.awt.Dimension;
+=======
+>>>>>>> master
 import java.awt.event.ActionListener;
 
 public class MainMenuView extends javax.swing.JPanel {
@@ -88,3 +91,7 @@ public class MainMenuView extends javax.swing.JPanel {
     private javax.swing.JLabel lblMainMenu;
     // End of variables declaration//GEN-END:variables
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
