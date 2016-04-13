@@ -166,6 +166,11 @@ System.out.println(gameState);
         	boardController.drawPos(selectedActor);
             boardController.clearMovable(unitController.getMovable());
             selectedActor = null;
+            if(getCurrentPlayer().getTeam() == "Guardian")
+            {
+            	currentPlayer.subtractRemainingMoves(currentPlayer.getRemainingMoves());
+            	boardController.setDiceRoll(currentPlayer.getRemainingMoves());
+            }
         }
         else if(currentPlayer.hasUnit(unit)&& selectedActor == null){
             boardController.drawMovable(unitController.movable((Actor)unit, currentPlayer.getRemainingMoves()));
