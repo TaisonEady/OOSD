@@ -45,4 +45,5 @@ public abstract class Unit {
     	return icon;
     }
     public abstract boolean moveable(int x, int y);
+    
 }

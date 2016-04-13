@@ -41,7 +41,7 @@ public class BoardView extends JPanel {
     }
 
     public void drawMovable(int[][] area) {
-        for (int i = 0; i < area.length - 1; i++) {
+        for (int i = 0; i < area.length ; i++) {
         	
             try {
             	if(cells[area[i][0]][area[i][1]].getUnit() instanceof BoardItem)
@@ -72,9 +72,15 @@ public class BoardView extends JPanel {
                 	if(cells[area[i][0]][area[i][1]].getUnit() instanceof BoardItem)
                 	{
                 	System.out.println(area[i][0]+"    -    "+area[i][1]);
-                	
+                	if ((area[i][0] == 0 && area[i][1] == 0) || (area[i][0] == 0 && area[i][1] == 1) || (area[i][0] == 1 && area[i][1] == 0)) { // set the gate color
+                		cells[area[i][0]][area[i][1]].setUnit(new Gate(area[i][0], area[i][1]));
+                        cells[area[i][0]][area[i][1]].repaint();
+                    }
+                	else
+                	{
                     cells[area[i][0]][area[i][1]].setUnit(new Ground(area[i][0], area[i][1]));
                     cells[area[i][0]][area[i][1]].repaint();
+                	}
                 	}
                 } catch (Exception e) {
 

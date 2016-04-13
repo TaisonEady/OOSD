@@ -12,12 +12,18 @@ public class Behemoth extends Guardian {
 		
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public int getMoveableCount(int rollCount)
+	{
 
+    	return 1+4*rollCount;
+    }
 	@Override
     public boolean attack(){
         System.out.println("Behemoth attack!!!");
         return true;
     }
+
 
 //    @Override
 //    public boolean move(int x, int y) {

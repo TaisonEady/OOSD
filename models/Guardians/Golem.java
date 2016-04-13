@@ -49,16 +49,17 @@ public class Golem extends Guardian {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
 	@Override
 	public boolean moveable(int x,int y)
 	{
-		if(x >3 && y > 3)
+		if(Math.abs(x) >2 || Math.abs(y) > 2)
 		{
-			return true;
+			return false;
 		}
 		else
 		{
-			return false;
+			return true;
 		}
 //		int rollCount = 1;
 //		// ^ need to pass a roll count ^
@@ -88,5 +89,17 @@ public class Golem extends Guardian {
 //		}
 //		
 	}
+
+	@Override
+	public int getMoveableCount(int rollCount)
+	{
+    	if(rollCount<3)
+    	{
+    		return(rollCount*2+1)*(rollCount*2+1);
+    	}
+    	return (2*2+1)*(2*2+1);
+	}
+
+
 
 }

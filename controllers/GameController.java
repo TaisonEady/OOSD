@@ -152,7 +152,7 @@ public class GameController {
 
     public void cellClicked(Unit unit) {
         System.out.println(unit);
-
+System.out.println(gameState);
         if (gameState == State.DICE_ROLL || gameState == State.CHECK_WIN) {
             return;
         }

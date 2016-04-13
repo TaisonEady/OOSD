@@ -73,9 +73,8 @@ public class UnitController {
         
         System.out.println(rollCount);
         
-        movePositions = new int[(rollCount*2+1)*(rollCount*2+1)][2];
+        movePositions = new int[unit.getMoveableCount(rollCount)][2];
             
-            int max = 12;
             int count= 0;
                 // ^ need to pass a board max pos ^
                 if (rollCount != 0)

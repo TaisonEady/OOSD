@@ -43,6 +43,12 @@ public class Hunter extends Guardian
 //		return false;
 //
 //	}
+	@Override
+	public int getMoveableCount(int rollCount)
+	{
+		return 1+4*rollCount;
+	}
+
 
 	@Override
 	public boolean useAbility()
@@ -62,7 +68,7 @@ public class Hunter extends Guardian
 	@Override
 	public boolean moveable(int x,int y)
 	{
-		if(x==y)
+		if(Math.abs(x)==Math.abs(y))
 		{
 			return true;
 		}

@@ -34,7 +34,8 @@ public abstract class Actor extends Unit {
     public void setStatus(boolean alive) {
         this.alive = alive;
     }
-    
+    public abstract int getMoveableCount(int rollCount);
+
 
 
 }
