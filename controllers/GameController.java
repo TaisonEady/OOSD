@@ -61,8 +61,6 @@ public class GameController {
     private Actor selectedActor;
     private State gameState;
     
-    private Unit selectedunit;
-    private int countclick = 1;
 
     public GameController(JFrame mainWindow) {
         this.mainWindow = mainWindow;
@@ -163,7 +161,10 @@ public class GameController {
             boardController.drawMovable(unitController.movable((Actor)unit, currentPlayer.getRemainingMoves()));
             selectedActor = (Actor)unit;
         }else if(unit instanceof MovableGround){
-            unitController.move(selectedActor, unit);
+        	currentPlayer.subtractRemainingMoves(unitController.move(selectedActor, unit));
+        	boardController.setDiceRoll(currentPlayer.getRemainingMoves());
+        	boardController.drawPos(unit);
+            boardController.clearMovable(unitController.getMovable(),selectedActor);
         }
 
 

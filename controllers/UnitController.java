@@ -19,6 +19,7 @@ import models.Explorer.TrapMaster;
 public class UnitController {
     
     private GameController gameController;
+     private static int[][] movePositions;
 
     public UnitController(GameController gameController) {
         this.gameController = gameController;
@@ -46,22 +47,33 @@ public class UnitController {
     		
     	}
 
-    public void move(Actor unit,Unit target)
+    public int move(Actor unit,Unit target)
     {
     	//if(target.getClass().getPackage().equals("models.Item"))
     	//{
-    		int currX = unit.getPos()[0];
-    		int currY = unit.getPos()[1];
-    		unit.setPos(target.getX(),target.getY());
-    		target.setPos(currX, currY);
+    	int posX = unit.getX();
+    	int posY = unit.getY();
+    	unit.setPos(target.getX(), target.getY());
+    	target.setPos(posX, posY);
+    	    	return Math.max(Math.abs(unit.getX()-target.getX()), Math.abs(unit.getY()-target.getY()));
+
+
+//    		int currX = unit.getPos()[0];
+//    		int currY = unit.getPos()[1];
+//    		unit.setPos(target.getX(),target.getY());
+//    		target.setPos(currX, currY);
     	//}
+    }
+    public int[][] getMovable()
+    {
+    	return movePositions;
     }
     
     public int[][] movable(Actor unit, int rollCount){
         
         System.out.println(rollCount);
         
-        int[][] movePositions = new int[(rollCount*2+1)*(rollCount*2+1)][2];
+        movePositions = new int[(rollCount*2+1)*(rollCount*2+1)][2];
             
             int max = 12;
             int count= 0;
@@ -72,7 +84,7 @@ public class UnitController {
                     {
                         for (int j = -rollCount; j < 1 + rollCount; j++)
                         {
-                            if(Math.abs(i)+Math.abs(j) !=0 && unit.moveable(i, j))
+                            if(unit.moveable(i, j))
                             {
                             	
                                 movePositions[count][0]= i + unit.getX();
