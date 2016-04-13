@@ -48,6 +48,12 @@ public class Player {
         }else{
             return unit;
         }
+        
+    }
+    public Map<String, Unit> getAllUnit()
+    {
+		return units;
+    	
     }
 
     public int getCurrentRoll() {

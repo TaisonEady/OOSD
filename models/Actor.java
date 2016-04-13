@@ -26,7 +26,10 @@ public abstract class Actor extends Unit {
     public String toString(){
        return this.getClass().getSimpleName();
     }
-    
+    public void setAlive(boolean alive)
+    {
+    	this.alive = alive;
+    }
     public boolean isAlive() {
         return this.alive;
     }

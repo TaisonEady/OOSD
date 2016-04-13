@@ -9,4 +9,11 @@ public abstract class BoardItem extends Unit{
         {
             return false;
         }
+        public boolean isAlive() {
+            return true;
+        }
+        public void setAlive(boolean alive)
+        {
+        	
+        }
 }

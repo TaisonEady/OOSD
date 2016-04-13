@@ -7,12 +7,8 @@
  */
 package controllers;
 
-<<<<<<< HEAD
-import java.util.HashSet;
-=======
 import javax.swing.JOptionPane;
 
->>>>>>> master
 import models.*;
 import models.Actor;
 import models.Explorer.Hero;
@@ -73,30 +69,7 @@ public class UnitController {
     	return movePositions;
     }
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public int[][] movable(Character unit){
-=======
-    
-    /*Preconditions: 
-     * Passed in unit is an active unit and newLocation is a locatoin on the
-     * board that is within the movable range of the unit.
-     */
-    public Unit move(Unit unit, int[] newLocation){
-        
-        unit.setPos(newLocation[0], newLocation[1]);
-        
-        return unit;
-    }
-    
-    
-    
-    public int[][] movable(Unit unit){
->>>>>>> Taison
-        int rollCount = gameController.rollDice();//getCurrentPlayer().getRemainingMoves();
-=======
     public int[][] movable(Actor unit, int rollCount){
->>>>>>> master
         
         System.out.println(rollCount);
         

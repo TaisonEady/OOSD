@@ -7,19 +7,16 @@
  */
 package controllers;
 
-<<<<<<< HEAD
-import models.Board;
-=======
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.*;
->>>>>>> master
 import models.*;
 import models.Explorer.*;
 import models.Guardians.*;
@@ -30,21 +27,6 @@ import javax.swing.JPanel;
 
 import main.*;
 import views.*;
-<<<<<<< HEAD
-import java.awt.event.*;
-import javax.swing.*;
-
-public class GameController {
-    
-    //models
-    private Game game;
-    private Board board;
-    //private Player currentPlayer;
-    
-    //views
-    private MainMenuView menu;
-    
-=======
 import views.BoardView.Cell;
 
 public class GameController {
@@ -65,58 +47,10 @@ public class GameController {
     private MainMenuView mainMenuView;
     private JFrame mainWindow;
 
->>>>>>> master
     //controllers
     private final PlayerController playerController;
     private final UnitController unitController;
     private BoardController boardController;
-<<<<<<< HEAD
-    
-    
-    public void startGame(){
-<<<<<<< HEAD
-    	
-        //TODO get menu
-        //TODO if menu true call init
-=======
-        System.out.println("Start Game");
-        initGame();
-        
-        try{
-            System.out.println("Explorer: " + game.getPlayer("Explorer").getName());
-            System.out.println("Guardian: " + game.getPlayer("Guardian").getName());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        
->>>>>>> Taison
-        //TODO start turn(Player)
-        //TODO start turn(Player 2)
-        //TODO FUTURE loop turns
-    }
-    
-<<<<<<< HEAD
-    public void init(){
-=======
-    public void quitGame(){
-        System.exit(0);
-    }
-    
-    public void initGame(){
->>>>>>> Taison
-        //TODO create players and units
-        game = new Game();
-        try{
-            game.addPlayer("Explorer", playerController.newPlayer("Explorer"));
-            game.addPlayer("Guardian", playerController.newPlayer("Guardian"));
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        //TODO create board object
-        board = new Board(20,20);
-        
-=======
 
     //Checks
     private static boolean initExplorer;
@@ -163,7 +97,6 @@ public class GameController {
         boardController.initBoard();
         boardController.initExplorerUnit(game.getPlayer("Explorer"));
         boardController.initGuardianUnit(game.getPlayer("Guardian"));
->>>>>>> master
     }
 
     public void showMainMenu() {
@@ -181,15 +114,6 @@ public class GameController {
         return this.gameState;
     }
     
-    public void showMainMenu(JFrame mainWindow){
-        
-        MenuActionListener listener = new MenuActionListener();
-        menu = new MainMenuView(listener);
-        mainWindow.getContentPane().add(menu);
-        
-        menu.setVisible(true);
-        
-    }
     
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -198,25 +122,27 @@ public class GameController {
     private boolean checkWin() {
     	if((boardController.getUnit(0, 0) instanceof Explorer)||(boardController.getUnit(0, 1) instanceof Explorer)||(boardController.getUnit(1, 0) instanceof Explorer))
     return true;
-        //TODO Needs to be checked after updating to Taison's new code, at the moment it fails searching for a player
-        /*Map unitMap = null;
-		try {
-			unitMap = game.getPlayer("explorer").units;
-		} catch (Exception e) {
+    	 Map<String, Unit> temp;
+		try
+		{
+			temp = game.getPlayer("Explorer").getAllUnit();
+			for (Entry<String, Unit> entry : temp.entrySet()) {
+				   System.out.println("Key : " + entry.getKey() + " alive : "
+				    + entry.getValue().isAlive());
+				   if(entry.getValue().isAlive() == true)
+				   {
+					   return false;
+				   }
+			}
+			return true;
+		} catch (Exception e)
+		{
 			e.printStackTrace();
+			// TODO Auto-generated catch block
+
 		}
     	
-		Iterator it = unitMap.entrySet().iterator();
-		   while (it.hasNext()) {
-		        Map.Entry pair = (Map.Entry)it.next();
-		        Unit unit = (Unit) pair.getValue();
-		        if (unit.pos[0] == 0 && unit.pos[1] == 0 || unit.pos[0] == 0 && unit.pos[1] == 1 || unit.pos[0] == 1 && unit.pos[1] == 0){
-		        	return(true);
-		        }
-		        it.remove(); // avoids a ConcurrentModificationException
-		    }
-    	
-         */
+      
         return (false);
     }
 
@@ -241,13 +167,15 @@ System.out.println(gameState);
         	boardController.setDiceRoll(currentPlayer.getRemainingMoves());
         	boardController.drawPos(unit);
         	boardController.drawPos(selectedActor);
-            boardController.clearMovable(unitController.getMovable());
-            selectedActor = null;
+            boardController.updateBoard(unitController.getMovable());
+            
             if(getCurrentPlayer().getTeam() == "Guardian")
             {
+            	checkAttack(selectedActor);
             	currentPlayer.subtractRemainingMoves(currentPlayer.getRemainingMoves());
             	boardController.setDiceRoll(currentPlayer.getRemainingMoves());
             }
+            selectedActor = null;
         }
         else if(currentPlayer.hasUnit(unit)&& selectedActor == null){
             boardController.drawMovable(unitController.movable((Actor)unit, currentPlayer.getRemainingMoves()));
@@ -255,15 +183,53 @@ System.out.println(gameState);
         }
         else
         {
-            boardController.clearMovable(unitController.getMovable());
+            boardController.updateBoard(unitController.getMovable());
         	selectedActor = null;
         }
 
     }
+    private void checkAttack(Actor actor)
+    {
+    	int[][] temp= new int[8][2];
+    	int count =0;
+    	for(int i=-1; i <2;i++)
+    	{
+    		for(int j = -1; j<2; j++)
+    		{
+    			try
+    			{
+    			if(boardController.getUnit(actor.getX()+i, actor.getY()+j) instanceof Actor)
+    			{
+    				if(boardController.getUnit(actor.getX()+i, actor.getY()+j) instanceof Explorer)
+    				{
+    					boardController.getUnit(actor.getX()+i, actor.getY()+j).setAlive(false);
+    					temp[count][0] = actor.getX()+i;
+    					temp[count][1] = actor.getY()+j;
+    					count++;
+    				}
+    			}
+    			}
+    			catch(Exception e)
+    			{
+    				
+    			}
+    				
+    		}
+    	}
+    	int[][] attack = new int[count][2];
+    	for(int i = 0; i<count;i++)
+    	{
+    		
+    		attack[i][0] = temp[i][0];
+    		attack[i][1] = temp[i][1];
+    			System.out.println("attack pos"+attack[i][0]+"   -   "+attack[i][1]);	
+    	}
+    	boardController.killUnit(attack);
+    }
     private void cleanmoavable()
     {
     	if(selectedActor != null)
-    		boardController.clearMovable(unitController.getMovable());
+    		boardController.updateBoard(unitController.getMovable());
     }
 
     private void quitGame() {
@@ -283,16 +249,6 @@ System.out.println(gameState);
     public PlayerController getPlayerController() {
         return playerController;
     }
-<<<<<<< HEAD
-    
-    public GameController(){
-        playerController = new PlayerController(this);
-        boardController = new BoardController(this);
-        unitController = new UnitController(this);
-        dice = new DiceUtility();
-        
-        //game = new Game(playerController.NewPlayer("Explorer"),playerController.NewPlayer("Guardian") );
-=======
 
     //TODO reset the dice value after end turn is pressed
     public void hudButtonClicked(){
@@ -336,7 +292,6 @@ System.out.println(gameState);
                 boardController.setWinState(getCurrentPlayer().getTeam());
             }
         }
->>>>>>> master
     }
 
 
@@ -365,25 +320,4 @@ System.out.println(gameState);
     mainMenuView.setVisible(false); //remove the menu component
         }
     }
-<<<<<<< HEAD
-    
-    class MenuActionListener implements ActionListener{
-        
-        public void actionPerformed(ActionEvent e) {
-            
-            String option = ((JButton)e.getSource()).getName();
-            
-            if(option == "startGame"){
-                startGame();
-            }else if(option == "options"){
-                System.out.println("show the options menu here.");
-            }else if(option == "quit"){
-                quitGame();
-            }
-            
-            menu.setVisible(false);
-        }
-    }	
-=======
->>>>>>> master
 }

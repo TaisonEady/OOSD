@@ -45,5 +45,7 @@ public abstract class Unit {
     	return icon;
     }
     public abstract boolean moveable(int x, int y);
+    public abstract boolean isAlive();
+    public abstract void setAlive(boolean alive);
     
 }

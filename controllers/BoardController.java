@@ -90,14 +90,9 @@ public class BoardController {
                     cell = new Ground(x, y);
                 }
 
-<<<<<<< HEAD
-    BoardController(GameController gameController) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-=======
                 boardView.initCells(boardListener, cell);
             }
         }
->>>>>>> master
     }
     
     public void initExplorerUnit(Player player) {
@@ -161,8 +156,8 @@ public class BoardController {
     void drawMovable(int[][] movePositions) {
         boardView.drawMovable(movePositions);
     }
-    void clearMovable(int[][] movePositions){
-    	boardView.updateBoard(movePositions);
+    void killUnit(int[][] movePositions) {
+        boardView.killUnit(movePositions);
     }
 
     void updateBoard(int[][] movePositions) {

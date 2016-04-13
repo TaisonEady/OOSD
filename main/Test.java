@@ -27,34 +27,6 @@
 //
 //        gameController.setCurrentPlayer(explorer);
 //        
-<<<<<<< HEAD
-//        System.out.println(guardian.getName());
-//        System.out.println(explorer.getName());
-
-        gameController.setCurrentPlayer(explorer);
-        
-        UnitController unitController = new UnitController(gameController);
-
-        Character Hero = new Hero(9,9);
-//        for(int i=0; i < unitController.movable(Hero).length; i++){
-//            for(int j=0; j<unitController.movable(Hero)[i].length; j++){
-//                System.out.println(unitController.movable(Hero)[i][j]);
-//            }
-//        }
-        
-        System.out.println(Arrays.deepToString(unitController.movable(Hero)));
-
-    }
-    
-    public void testView(){
-    	// the test code
-    	MainMenu_old bv = new MainMenu_old();
-    	bv.startGame();
-    }
-    
-    public void testModel(){
-//    	
-=======
 //        UnitController unitController = new UnitController(gameController);
 //
 //        Character Hero = new Hero(9,9);
@@ -76,7 +48,6 @@
 //    }
 //    
 //    public void testView(){
->>>>>>> master
 //    	// the test code
 //    	MainMenu bv = new MainMenu();
 //    	bv.startGame();
