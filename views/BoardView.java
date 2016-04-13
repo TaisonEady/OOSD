@@ -39,6 +39,11 @@ public class BoardView extends JPanel {
     public Cell[][] getCells() {
         return cells;
     }
+    public Unit getUnit(int x, int y)
+    {
+		return cells[x][y].getUnit();
+    	
+    }
 
     public void drawMovable(int[][] area) {
         for (int i = 0; i < area.length ; i++) {
@@ -59,15 +64,10 @@ public class BoardView extends JPanel {
         System.out.println("movable end");
     }
 
-    public void updateBoard(Unit unit, int[][] area) {
-    	cells[unit.getX()][unit.getY()].setUnit(unit);
-    	cells[unit.getX()][unit.getY()].repaint();
-    	for (int i = 0; i < area.length - 1; i++) {
-    		if(unit.getX()==area[i][0]&&unit.getY() == area[i][1])
-    		{
-    		}
-    		else
-    		{
+    public void updateBoard(int[][] area) {
+
+    	for (int i = 0; i < area.length; i++) {
+
     			try {
                 	if(cells[area[i][0]][area[i][1]].getUnit() instanceof BoardItem)
                 	{
@@ -88,7 +88,7 @@ public class BoardView extends JPanel {
             	}
             
     		
-        }
+        
 //        cells[unit.getX()][unit.getY()].setUnit(unit);
 //        cells[unit.getX()][unit.getY()].repaint();
 //        for (int i = 0; i < area.length - 1; i++) {

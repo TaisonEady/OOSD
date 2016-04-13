@@ -119,6 +119,8 @@ public class GameController {
     }
 
     private boolean checkWin() {
+    	if((boardController.getUnit(0, 0) instanceof Explorer)||(boardController.getUnit(0, 1) instanceof Explorer)||(boardController.getUnit(1, 0) instanceof Explorer))
+    return true;
         //TODO Needs to be checked after updating to Taison's new code, at the moment it fails searching for a player
         /*Map unitMap = null;
 		try {
@@ -157,59 +159,29 @@ System.out.println(gameState);
             return;
         }
 
-        if(currentPlayer.hasUnit(unit)){
-            boardController.drawMovable(unitController.movable((Actor)unit, currentPlayer.getRemainingMoves()));
-            selectedActor = (Actor)unit;
-        }else if(unit instanceof MovableGround){
+        if(unit instanceof MovableGround && selectedActor != null){
         	currentPlayer.subtractRemainingMoves(unitController.move(selectedActor, unit));
         	boardController.setDiceRoll(currentPlayer.getRemainingMoves());
         	boardController.drawPos(unit);
-            boardController.clearMovable(unitController.getMovable(),selectedActor);
+        	boardController.drawPos(selectedActor);
+            boardController.clearMovable(unitController.getMovable());
+            selectedActor = null;
+        }
+        else if(currentPlayer.hasUnit(unit)&& selectedActor == null){
+            boardController.drawMovable(unitController.movable((Actor)unit, currentPlayer.getRemainingMoves()));
+            selectedActor = (Actor)unit;
+        }
+        else
+        {
+            boardController.clearMovable(unitController.getMovable());
+        	selectedActor = null;
         }
 
-
-//        System.out.println(unit.getX() + "       " + unit.getY());
-//
-//        if (countclick == 1) {
-//            selectedunit = unit;
-//        }
-//        int rollCount = 3;
-//
-//        movePositions = new int[(rollCount * 2 + 1) * (rollCount * 2 + 1)][2];
-//        int max = 12;
-//        int count = 0;
-//        // ^ need to pass a board max pos ^
-//        if (countclick == 1) {
-//
-//            if (rollCount != 0) {
-//                for (int i = -rollCount; i < 1 + rollCount; i++) {
-//                    for (int j = -rollCount; j < 1 + rollCount; j++) {
-//                        if (Math.abs(i) + Math.abs(j) != 0 && unit.moveable(i, j)) {
-//
-//                            movePositions[count][0] = i + selectedunit.getX();
-//                            movePositions[count][1] = j + selectedunit.getY();
-//                            count++;
-//                        }
-//
-//                    }
-//                }
-//
-//            }
-//            for (int i = 0; i < count + 1; i++) {
-//                System.out.println(movePositions[i][0] + "   -    " + movePositions[i][1]);
-//
-//            }
-//            boardController.drawMovable(movePositions);
-//        } else if (countclick == 2) {
-//            for (int i = 0; i < count + 1; i++) {
-//                System.out.println(movePositions[i][0] + "   -    " + movePositions[i][1]);
-//
-//            }
-//            selectedunit.setPos(unit.getX(), unit.getY());
-//            boardController.updateBoard(selectedunit, movePositions);
-//
-//        }
-//        countclick++;
+    }
+    private void cleanmoavable()
+    {
+    	if(selectedActor != null)
+    		boardController.clearMovable(unitController.getMovable());
     }
 
     private void quitGame() {
@@ -243,6 +215,8 @@ System.out.println(gameState);
             boardController.setUnitState();
         } //Move to check win state, restart if nobody won
         else if (gameState == GameController.State.ACTION) {
+        	cleanmoavable();
+        	boardController.setDiceRoll(0);
             //Check if the player has won
             gameState = GameController.State.CHECK_WIN;
             boolean didWin = checkWin();
@@ -267,7 +241,7 @@ System.out.println(gameState);
                 }
                 gameState = GameController.State.DICE_ROLL;
             } else {
-                boardController.setWinState();
+                boardController.setWinState(getCurrentPlayer().getTeam());
             }
         }
     }

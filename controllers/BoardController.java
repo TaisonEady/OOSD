@@ -147,16 +147,21 @@ public class BoardController {
             }
         }
     }
+    public Unit getUnit(int x, int y)
+    {
+		return boardView.getUnit(x, y);
+   	 
+    }
 
     void drawMovable(int[][] movePositions) {
         boardView.drawMovable(movePositions);
     }
-    void clearMovable(int[][] movePositions, Unit unit){
-    	boardView.updateBoard(unit, movePositions);
+    void clearMovable(int[][] movePositions){
+    	boardView.updateBoard(movePositions);
     }
 
-    void updateBoard(Unit selectedunit, int[][] movePositions) {
-        boardView.updateBoard(selectedunit, movePositions);
+    void updateBoard(int[][] movePositions) {
+        boardView.updateBoard(movePositions);
     }
     void drawPos(Unit unit)
     {
@@ -179,9 +184,10 @@ public class BoardController {
         hudView.swapPlayer();
     }
 
-    void setWinState() {
-        hudView.setWinState();
+    void setWinState(String team) {
+        hudView.setWinState(team);
     }
+
     
     class BoardActionListener implements ActionListener {
 
