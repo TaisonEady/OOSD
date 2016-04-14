@@ -41,6 +41,10 @@ public class Game {
         this.board = board;
     }
 
+	public Map<String, Player> getPlayers() {
+		return this.players;
+	}
+
     
 
 }

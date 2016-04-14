@@ -3,22 +3,33 @@ package models;
 public abstract class Actor extends Unit {
 	
 	private boolean alive;
-	
-	private int[] pos = new int[2];
-	private boolean onBoard;
+	private int initX;
+	private int initY;
 
-	public Actor(int x, int y) {
-		super(x, y);
+	public Actor() {
+		super();
 		this.alive = true;
-		// TODO Auto-generated constructor stub
+	}
+
+    public int getInitX() {
+		return initX;
+	}
+
+	public int getInitY() {
+		return initY;
 	}
 	
+	public void setInitX(int x){
+		initX = x;
+	}
 	
-    
-    public abstract boolean moveable(int x, int y);
-    
-//    public abstract boolean move(int x, int y);
-    
+	public void setInitY(int y){
+		initY = y;
+	}
+	
+
+	public abstract boolean moveable(int x, int y);
+        
     public abstract boolean attack();
     
     public abstract boolean useAbility();
