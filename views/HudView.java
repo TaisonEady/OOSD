@@ -1,16 +1,8 @@
 package views;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
-
-import models.Player;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Random;
 
 public class HudView extends JPanel{
 	
@@ -27,7 +19,7 @@ public class HudView extends JPanel{
 		
 		Color bluegrey = new Color(179, 204, 204);
 		this.setBackground(bluegrey);
-		this.setPreferredSize(new Dimension(700, 50));
+		this.setPreferredSize(new Dimension(800, 50));
 		
 		isExplorer = true;
 		
@@ -38,20 +30,18 @@ public class HudView extends JPanel{
 		currentPlayer.setForeground(Color.blue);
 		actionButton = new JButton("Roll dice");
 		actionButton.setPreferredSize(new Dimension(140, 40));
-                actionButton.addActionListener(hudListener);
+        actionButton.addActionListener(hudListener);
 		
 		
-		//diceIcon = new ImageIcon("bin/images/dice.png");
-		//endTurnIcon = new ImageIcon("bin/images/endTurn.png");
-                diceIcon = new ImageIcon("/home/teady/NetBeansProjects/OOSD/gitRepo/images/dice.png");
-		endTurnIcon = new ImageIcon("/home/teady/NetBeansProjects/OOSD/gitRepo/images/endTurn.png");
+		diceIcon = new ImageIcon("bin/images/dice.png");
+		endTurnIcon = new ImageIcon("bin/images/endTurn.png");
 		
 	    actionButton.setIcon(diceIcon);
 	    
 	    actionButton.setFocusPainted(false);
 
 		//Layout elements across HUD bar
-                this.add(Box.createVerticalStrut(40));
+        this.add(Box.createVerticalStrut(40));
 		this.add(instruction);
 		this.add(Box.createHorizontalStrut(60));
 		this.add(actionButton);
@@ -100,10 +90,7 @@ public class HudView extends JPanel{
 		instruction.setText("Would you like to attack?");
 	}
 	
-	public void setWinState(String team){
-		instruction.setText(team+ " win!");
+	public void setWinState(){
+		instruction.setText(currentPlayer.getText() + " win!");
 	}
-	
-	
-
 }

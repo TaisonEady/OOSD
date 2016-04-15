@@ -1,5 +1,5 @@
 /*
- *  OSSD Asignment 1 - The Chase
+ *  OSSD Assignment 1 - The Chase
  *  Charles Yim - S3570764
  *  Jacob Paris - S3238163
  *  Chen Liu- S3481556
@@ -7,36 +7,31 @@
  */
 package controllers;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.*;
+
 import models.*;
-import models.Explorer.*;
-import models.Guardians.*;
-import models.Item.*;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
+import models.items.*;
 import main.*;
 import views.*;
-import views.BoardView.Cell;
 
 public class GameController {
 
     //constants
     private static DiceUtility dice;
-
-
     public static enum State {
         DICE_ROLL, ACTION, CHECK_WIN
     };
+    private static final int ROWS = 15;
+    private static final int COLUMNS = 15;
+    
+    private Map<String, ActorType[]> teamSetup;
 
     //models
     private Game game;
@@ -51,26 +46,45 @@ public class GameController {
     private final UnitController unitController;
     private BoardController boardController;
 
-    //Checks
-    private static boolean initExplorer;
-    private static boolean initGuardian;
-    private static boolean initBoard;
-
     //State variables
     private Player currentPlayer;
-    private Actor selectedActor;
+    private Cell selectedCell;
+    private List<Cell> lastMovableCells;
     private State gameState;
-    
+    private Player winner;
 
     public GameController(JFrame mainWindow) {
         this.mainWindow = mainWindow;
         this.game = new Game();
-        playerController = new PlayerController(this);
         boardController = new BoardController(this);
         unitController = new UnitController(this);
+        playerController = new PlayerController(this, unitController);
+        lastMovableCells = new ArrayList<Cell>();
         dice = new DiceUtility();
         gameState = State.DICE_ROLL;
+        setupTeams();
     }
+    
+    private void setupTeams(){
+    	
+        teamSetup = new HashMap<>();
+        
+        teamSetup.put("Explorer", new ActorType[]{
+        		new ActorType("Hero","models.explorers",ROWS-1,COLUMNS-2),
+        		new ActorType("Scout","models.explorers",ROWS-2,COLUMNS-1),
+        		new ActorType("Tactician","models.explorers",ROWS-1,COLUMNS-1),
+        		new ActorType("TrapMaster","models.explorers",ROWS-2,COLUMNS-2),      		
+        });
+        
+        teamSetup.put("Guardian", new ActorType[]{
+        		new ActorType("Behemoth","models.guardians",0,0),
+        		new ActorType("Golem","models.guardians",0,COLUMNS-1),
+        		new ActorType("Hunter","models.guardians",ROWS-1,0)     		
+        });       
+    }
+    
+    //
+
 
     public void startGame() {
         System.out.println("Start Game");
@@ -83,29 +97,23 @@ public class GameController {
         }
         
         boardController.showBoard(mainWindow);
-        
         //resize the main window to fit the size of the components.
         mainWindow.pack();
 
     }
 
     public void initGame() throws Exception{
-        game.addPlayer("Guardian", playerController.newPlayer("Guardian"));
-        setCurrentPlayer(game.addPlayer("Explorer", playerController.newPlayer("Explorer")));
-                
-        boardController.initBoard();
-        boardController.initExplorerUnit(game.getPlayer("Explorer"));
-        boardController.initGuardianUnit(game.getPlayer("Guardian"));
+        
+    	setCurrentPlayer(game.addPlayer("Explorer", playerController.newPlayer("Explorer")));
+    	game.addPlayer("Guardian", playerController.newPlayer("Guardian"));
+        boardController.initBoard(ROWS,COLUMNS);
     }
 
     public void showMainMenu() {
-
         MenuActionListener listener = new MenuActionListener();
         mainMenuView = new MainMenuView(listener);
         mainWindow.getContentPane().add(mainMenuView);
-
         mainMenuView.setVisible(true);
-
     }
 
     
@@ -118,31 +126,6 @@ public class GameController {
         return currentPlayer;
     }
 
-    private boolean checkWin() {
-    	if((boardController.getUnit(0, 0) instanceof Explorer)||(boardController.getUnit(0, 1) instanceof Explorer)||(boardController.getUnit(1, 0) instanceof Explorer))
-    return true;
-        //TODO Needs to be checked after updating to Taison's new code, at the moment it fails searching for a player
-        /*Map unitMap = null;
-		try {
-			unitMap = game.getPlayer("explorer").units;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
-		Iterator it = unitMap.entrySet().iterator();
-		   while (it.hasNext()) {
-		        Map.Entry pair = (Map.Entry)it.next();
-		        Unit unit = (Unit) pair.getValue();
-		        if (unit.pos[0] == 0 && unit.pos[1] == 0 || unit.pos[0] == 0 && unit.pos[1] == 1 || unit.pos[0] == 1 && unit.pos[1] == 0){
-		        	return(true);
-		        }
-		        it.remove(); // avoids a ConcurrentModificationException
-		    }
-    	
-         */
-        return (false);
-    }
-
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
         System.out.println(currentPlayer);
@@ -152,49 +135,43 @@ public class GameController {
         return dice.roll();
     }
 
-    public void cellClicked(Unit unit) {
-        System.out.println(unit);
-System.out.println(gameState);
+    public void cellClicked(Cell cell) {
+
         if (gameState == State.DICE_ROLL || gameState == State.CHECK_WIN) {
             return;
         }
-
-        if(unit instanceof MovableGround && selectedActor != null){
-        	currentPlayer.subtractRemainingMoves(unitController.move(selectedActor, unit));
-        	boardController.setDiceRoll(currentPlayer.getRemainingMoves());
-        	boardController.drawPos(unit);
-        	boardController.drawPos(selectedActor);
-            boardController.clearMovable(unitController.getMovable());
-            selectedActor = null;
+        
+        if(currentPlayer.hasActor((Actor)cell.getUnit())){
+            boardController.resetMovable(lastMovableCells);
+        	selectedCell = cell;
+        	lastMovableCells = boardController.movable(cell, currentPlayer.getRemainingMoves());
+            boardController.drawMovable(lastMovableCells);
+        }else if(cell.getItem() instanceof MovableGround || cell.getItem() instanceof Gate){
+            //move the unit in the selected cell to the clicked cell
+        	int moveDistance = boardController.move(selectedCell,cell);
+            
+        	//subtract the current players remaining moves by the distance moved 
+        	//(remaining moves go to zero for guardians as they can only move once)
+        	try {
+        		if(currentPlayer.getTeam()=="Guardian"){
+        			currentPlayer.subtractRemainingMoves(currentPlayer.getRemainingMoves());
+        		}else{
+        			currentPlayer.subtractRemainingMoves(moveDistance);
+        		}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        	//update the hudview with the number of remaining moves
+            boardController.setDiceRoll(currentPlayer.getRemainingMoves());
+            //reset the movable squares to ground and repaint the board
+            boardController.resetMovable(lastMovableCells);
+            boardController.repaintBoard();
         }
-        else if(currentPlayer.hasUnit(unit)&& selectedActor == null){
-            boardController.drawMovable(unitController.movable((Actor)unit, currentPlayer.getRemainingMoves()));
-            selectedActor = (Actor)unit;
-        }
-        else
-        {
-            boardController.clearMovable(unitController.getMovable());
-        	selectedActor = null;
-        }
-
-    }
-    private void cleanmoavable()
-    {
-    	if(selectedActor != null)
-    		boardController.clearMovable(unitController.getMovable());
     }
 
     private void quitGame() {
         // System.exit(0);
         return;
-    }
-
-    public Actor getSelectedActor() {
-        return selectedActor;
-    }
-
-    public void setSelectedActor(Actor selectedActor) {
-        this.selectedActor = selectedActor;
     }
 
     //getter for testing only
@@ -215,12 +192,11 @@ System.out.println(gameState);
             boardController.setUnitState();
         } //Move to check win state, restart if nobody won
         else if (gameState == GameController.State.ACTION) {
-        	cleanmoavable();
+            //Reset the dice rolls to 0
         	boardController.setDiceRoll(0);
-            //Check if the player has won
+        	//Check if the player has won
             gameState = GameController.State.CHECK_WIN;
-            boolean didWin = checkWin();
-            if (!didWin) {
+            if (winner == null) {
                 boardController.setDiceState();
                 //Swap to the next player, this could be changed later to facilitate more than 2 players
                 boardController.swapPlayer();
@@ -241,14 +217,18 @@ System.out.println(gameState);
                 }
                 gameState = GameController.State.DICE_ROLL;
             } else {
-                boardController.setWinState(getCurrentPlayer().getTeam());
+                boardController.setWinState();
             }
         }
     }
 
 
 
-    class MenuActionListener implements ActionListener {
+    public Map<String, ActorType[]> getTeamSetup() {
+		return teamSetup;
+	}
+
+	class MenuActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -272,4 +252,14 @@ System.out.println(gameState);
     mainMenuView.setVisible(false); //remove the menu component
         }
     }
+
+
+
+	public Map<String, Player> getPlayers() {
+		return game.getPlayers();
+	}
+
+	public void setWinner(Player winner) {
+		this.winner = winner;
+	}
 }
