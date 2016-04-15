@@ -5,7 +5,17 @@
  */
 package views;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 
 public class MainMenuView extends javax.swing.JPanel {
 
@@ -13,9 +23,26 @@ public class MainMenuView extends javax.swing.JPanel {
      * Creates new form MainMenu
      * @param actionListener
      */
+	
+	private Image backgroundImage;
+	
+	@Override
+	  protected void paintComponent(Graphics g) {
+
+	    super.paintComponent(g);
+	        g.drawImage(backgroundImage, 0, 0, null);
+	}
+	
     public MainMenuView(ActionListener actionListener) {
-        initComponents();
-        
+    	this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    	initComponents();
+        try {
+			backgroundImage = ImageIO.read(new File("bin/images/menuBG.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        this.setPreferredSize(new Dimension(919,566));
         btnStart.addActionListener(actionListener);
         btnOptions.addActionListener(actionListener);
         btnQuit.addActionListener(actionListener);
@@ -42,16 +69,38 @@ public class MainMenuView extends javax.swing.JPanel {
         lblMainMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMainMenu.setText("The Chase - Main Menu ");
         lblMainMenu.setInheritsPopupMenu(false);
+        
+        this.add(Box.createVerticalStrut(200));
 
         btnStart.setText("Start Game");
         btnStart.setName("startGame"); // NOI18N
-
+        btnStart.setMinimumSize(new Dimension(300,50));
+        btnStart.setMaximumSize(new Dimension(300,50));
+        btnStart.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnStart.setAlignmentY(Component.CENTER_ALIGNMENT);
+        this.add(btnStart);
+        
+        this.add(Box.createVerticalStrut(20));
+        
         btnOptions.setText("Options");
         btnOptions.setName("options"); // NOI18N
+        btnOptions.setMinimumSize(new Dimension(300,50));
+        btnOptions.setMaximumSize(new Dimension(300,50));
+        btnOptions.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnOptions.setAlignmentY(Component.CENTER_ALIGNMENT);
+        this.add(btnOptions);
+        
+        this.add(Box.createVerticalStrut(20));
 
         btnQuit.setText("Quit Game");
         btnQuit.setName("quitGame"); // NOI18N
-
+        btnQuit.setMinimumSize(new Dimension(300,50));
+        btnQuit.setMaximumSize(new Dimension(300,50));
+        btnQuit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnQuit.setAlignmentY(Component.CENTER_ALIGNMENT);
+        this.add(btnQuit);
+        
+        /*
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,9 +125,8 @@ public class MainMenuView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnQuit)
                 .addContainerGap(16, Short.MAX_VALUE))
-        );
+        );*/
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOptions;
