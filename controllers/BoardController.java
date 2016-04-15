@@ -1,5 +1,5 @@
 /*
- *  OSSD Assignment 1 - The Chase
+ *  OSSD Asignment 1 - The Chase
  *  Charles Yim - S3570764
  *  Jacob Paris - S3238163
  *  Chen Liu- S3481556
@@ -10,42 +10,56 @@ package controllers;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import models.*;
-import models.explorers.Explorer;
-import models.items.*;
+import models.Explorer.Hero;
+import models.Explorer.Scout;
+import models.Explorer.Tactician;
+import models.Explorer.TrapMaster;
+import models.Guardians.Behemoth;
+import models.Guardians.Golem;
+import models.Guardians.Hunter;
+import models.Item.ExplorerStartPoint;
+import models.Item.Gate;
+import models.Item.Ground;
+import models.Item.GuardianStartPoint;
 import views.BoardView;
+import views.BoardView.Cell;
 import views.HudView;
 
 
 
 public class BoardController {
     
+    private static final int ROWS = 12;
+    private static final int COLUMNS = 12;
+    
     private GameController gameController;
     
     private Board board;
     private BoardView boardView;
     private HudView hudView;
-    private Ground ground;
-    private MovableGround movableGround;
-        
+    
+    private BoardActionListener boardListener;
+    private HUDActionListener hudListener;
+    
+    private boolean boardInitialised = false;
+    private boolean initExplorer = false;
+    private boolean initGuardian = false;
+
     public BoardController(GameController gameController) {
         
-        this.gameController = gameController;        
-        ground = new Ground();
-        movableGround = new MovableGround();
+        this.gameController = gameController;
+        boardListener = new BoardActionListener();
+        hudListener = new HUDActionListener();
         
     }
     
-    //this method assumes that the board has been initialized prior to calling.
-    public void showBoard(JFrame mainWindow){        
+    public void showBoard(JFrame mainWindow){
+        //TODO check that board is init
+        
         //create a new content panel holding both the grid and the hud
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.add(boardView, BorderLayout.CENTER);
@@ -55,37 +69,105 @@ public class BoardController {
         contentPanel.setVisible(true);
     }
   
-    public void initBoard(int rows, int columns) {
-        board = new Board(rows, columns, ground);
+    public void initBoard() {
+        board = new Board();
         
-        boardView = new BoardView(new BoardActionListener(), rows, columns, board.getCells());
+        boardView = new BoardView(boardListener, ROWS, COLUMNS);
         hudView = new HudView(new HUDActionListener());
+        
+        for (int y = 0; y < COLUMNS; y++) {
+            for (int x = 0; x < ROWS; x++) {
+                BoardItem cell;
+                if ((x == 0 && y == COLUMNS - 1) || (x == COLUMNS - 1 && y == 0)) { // set Guardian start point
+                    cell = new GuardianStartPoint(x, y);
+                } else if ((x == ROWS - 1 && y == COLUMNS - 1) || (x == ROWS - 1 && y == COLUMNS - 2)
+                        || (x == ROWS - 2 && y == COLUMNS - 1) || (x == ROWS - 2 && y == COLUMNS - 2)) { // set Explorer start point
 
-        for(Player player : gameController.getPlayers().values()){
-        	for(Actor actor : player.actors.values()){
-        		setCellUnit(actor.getInitX(), actor.getInitY(), actor);
-        	}
+                    cell = new ExplorerStartPoint(x, y);
+                } else if ((x == 0 && y == 0) || (x == 0 && y == 1) || (x == 1 && y == 0)) { // set the gate color
+                    cell = new Gate(x, y);
+                } else {
+                    cell = new Ground(x, y);
+                }
+
+                boardView.initCells(boardListener, cell);
+            }
         }
-        initItems();
     }
     
-    private void initItems(){
-    	BoardItem gate = new Gate();
-    	setCellItem(0,0, gate);
-    	setCellItem(1,0, gate);
-    	setCellItem(0,1, gate);
+    public void initExplorerUnit(Player player) {
+        if (initExplorer) {
+            JOptionPane.showMessageDialog(null, "Explorer already initialize");
+        } else {
+            // initExplorerUnit
+            Hero hero = new Hero(11, 11);
+            Scout scout = new Scout(10, 10);
+            Tactician tactician = new Tactician(10, 11);
+            TrapMaster trapMaster = new TrapMaster(11, 10);
+
+            try {
+                player.addUnit("hero", hero);
+                boardView.initCells(boardListener, hero);
+                player.addUnit("scout", scout);
+                boardView.initCells(boardListener, scout);
+                player.addUnit("tactician", tactician);
+                boardView.initCells(boardListener, tactician);
+                player.addUnit("trapMaster", trapMaster);
+                boardView.initCells(boardListener, trapMaster);
+                initExplorer = true;
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
     }
-    
-    //Sets the unit for the cell
-    public void setCellUnit(int x, int y, Unit unit){
-    	board.getCells()[x][y].setUnit(unit);
+
+    public void initGuardianUnit(Player player) {
+        if (initGuardian) {
+            JOptionPane.showMessageDialog(null, "Guardian already initialize");
+        } else {
+            // initGuardianUnit
+            Behemoth behemoth = new Behemoth(0, 0);
+            Golem golem = new Golem(11, 0);
+            Hunter hunter = new Hunter(0, 11);
+
+            try {
+                player.addUnit("behemoth", behemoth);
+                boardView.initCells(boardListener, behemoth);
+                player.addUnit("golem", golem);
+                boardView.initCells(boardListener, golem);
+                player.addUnit("hunter", hunter);
+                boardView.initCells(boardListener, hunter);
+                initGuardian = true;
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
-    
-    //Sets the unit for the cell
-    public void setCellItem(int x, int y, BoardItem item){
-    	board.getCells()[x][y].setItem(item);
+    public Unit getUnit(int x, int y)
+    {
+		return boardView.getUnit(x, y);
+   	 
     }
-    
+
+    void drawMovable(int[][] movePositions) {
+        boardView.drawMovable(movePositions);
+    }
+    void clearMovable(int[][] movePositions){
+    	boardView.updateBoard(movePositions);
+    }
+
+    void updateBoard(int[][] movePositions) {
+        boardView.updateBoard(movePositions);
+    }
+    void drawPos(Unit unit)
+    {
+    	boardView.darwPos(unit);
+    }
+
     void setDiceRoll(int diceAmount) {
         hudView.setDiceRoll(diceAmount);
     }
@@ -102,92 +184,19 @@ public class BoardController {
         hudView.swapPlayer();
     }
 
-    void setWinState() {
-        hudView.setWinState();
+    void setWinState(String team) {
+        hudView.setWinState(team);
     }
-    
-    //assumes origin contains a movable unit and can legally move to target.
-    public int move(Cell origin, Cell target)
-    {
-    	//move the unit from the origin to the target and replace the origin with ground.
-    	target.setUnit(origin.getUnit());
-    	origin.setUnit(null);
-    	
-    	//if the explorer moving into a gate cell update game controller winstate
-    	if(target.getUnit() instanceof Explorer && target.getItem() instanceof Gate){
-    		gameController.setWinner(gameController.getPlayers().get("Explorer"));
-    	}
-    	
-    	//return the distance that the unit moved.
-    	return getDistance(origin, target);
-    }
-    
-    //calculates the absolute distance between two given cells
-    private int getDistance(Cell origin, Cell target){
-    	int x1 = origin.getXPos();
-    	int y1 = origin.getYPos();
-    	int x2 = target.getXPos();
-    	int y2 = target.getYPos();
-    	
-    	return Math.max(Math.abs(x2-x1), Math.abs(y2-y1));
-    }
-    
-    //returns the array of possible coordinates for a unit to move to.
-    //assumes origin contains movable unit and rollCount is a valid dice roll.
-    public List<Cell> movable(Cell origin, int rollCount){
-        
-    	List<Cell> movableCells = new ArrayList<>(rollCount*2+1);
-    	int xPos = origin.getXPos();
-    	int yPos = origin.getYPos();
-    	
-    	for(int x = -rollCount; x <= rollCount; x++){
-    		if(xPos+x < 0||xPos+x >= board.getColumns()){
-    			continue;
-    		}
-    		for(int y = -rollCount; y <= rollCount; y++){
-        		if(yPos+y < 0||yPos+y >= board.getRows()){
-        			continue;
-        		}
-        		
-        		int movableX = origin.getXPos()+x;
-        		int movableY = origin.getYPos()+y;
-        		
-        		if(origin.getUnit().moveable(x,y)){
-        			Cell movableCell = board.getCells()[movableX][movableY];
-        			if(movableCell.getItem() instanceof Gate || movableCell.getUnit() != null){
-        				continue;
-        			}
-        			movableCells.add(movableCell);
-        		}
-    		}
-    	}
-    	
-    	return movableCells;
-    }
-    
-    //Assumes the movable cells passed in are on the board
-	public void drawMovable(List<Cell> movableCells) {
-		for(Cell movableCell : movableCells){
-			movableCell.setItem(movableGround);
-			movableCell.repaint();
-		}
-	}
-	
-	public void resetMovable(List<Cell> movableCells){
-		for(Cell movableCell : movableCells){
-			movableCell.setItem(ground);
-			movableCell.repaint();
-		}
-	}
+
     
     class BoardActionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            Cell cell = ((Cell)e.getSource());
+            Unit unit = ((Cell) e.getSource()).getUnit();
 
-            gameController.cellClicked(cell);
+            gameController.cellClicked(unit);
 
         }
 
@@ -200,10 +209,5 @@ public class BoardController {
            gameController.hudButtonClicked();
         }
     }
-
-
-	public void repaintBoard() {
-		boardView.repaintBoard();
-	}
 }
    

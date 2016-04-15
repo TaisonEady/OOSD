@@ -3,33 +3,21 @@ package models;
 public abstract class Actor extends Unit {
 	
 	private boolean alive;
-	private int initX;
-	private int initY;
 
-	public Actor() {
-		super();
+	private boolean onBoard;
+
+	public Actor(int x, int y) {
+		super(x, y);
 		this.alive = true;
-	}
-
-    public int getInitX() {
-		return initX;
-	}
-
-	public int getInitY() {
-		return initY;
+		// TODO Auto-generated constructor stub
 	}
 	
-	public void setInitX(int x){
-		initX = x;
-	}
 	
-	public void setInitY(int y){
-		initY = y;
-	}
-	
-
-	public abstract boolean moveable(int x, int y);
-        
+    
+    public abstract boolean moveable(int x, int y);
+    
+//    public abstract boolean move(int x, int y);
+    
     public abstract boolean attack();
     
     public abstract boolean useAbility();
@@ -46,7 +34,8 @@ public abstract class Actor extends Unit {
     public void setStatus(boolean alive) {
         this.alive = alive;
     }
-    
+    public abstract int getMoveableCount(int rollCount);
+
 
 
 }
